@@ -1,10 +1,10 @@
 import React from 'react';
-import state from '../store';
-import {snapshot} from 'valtio';
+// import state from '../store';
+// import {snapshot} from 'valtio';
 import Layout from '../components/Layout';
 
 const Home = () => {
-    const snap = snapshot(state);
+    // const snap = snapshot(state);
    
   return (
    <>

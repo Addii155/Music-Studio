@@ -6,20 +6,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import Register from './pages/SignUp';
 import Layout from './components/Layout';
-
+import GenerateContent from './components/Gemini';
+import { useStore } from './store';
+import { ThemeProvider } from "@/components/theme-provider"
 function App() {
+
 
   const {user,auth} = useSelector((state)=>state.auth);
   const dispatch=useDispatch();
- console.log(document.cookie);
-
+  
   
   return (
     <>
+
     <BrowserRouter>
     
     <Routes>
-      <Route path="/"  element={auth===true ? <Home /> : <Login />} />
+      <Route path="/"  element={<Home />} />
      
       <Route path="/register" element={<Register />} />
       <Route path='/login' element={<Login />} />

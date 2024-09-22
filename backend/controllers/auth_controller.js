@@ -119,7 +119,7 @@ const authCtrl = {
                     })
                 }
                 const isMatch= await bcryptjs.compare(password,user.password);
-                console.log(isMatch)
+                // console.log(isMatch) 
                 if(!isMatch)
                 {
                     return res.status(401).json({
@@ -199,7 +199,7 @@ const authCtrl = {
             })
         }
     },
-    forgetPassword:async(req,res,next)=>{
+    forgetPassword:async(req,res)=>{
         try {
             const {email} =req.body;
             const user=await User.findOne({email});
@@ -210,6 +210,7 @@ const authCtrl = {
                     message: "Email doest not registered",
                   });
             }
+            const otp=Math.floor(1000+Math.random()*9000);
             const exsitOtp=await Otp.findOne({email});
             if(exsitOtp)
             {
@@ -223,7 +224,6 @@ const authCtrl = {
                     otp,
                 })
             }
-            const otp=Math.floor(1000+Math.random()*9000);
             sendmail(email,otp,"Reset Password");
             res.json({
                 success: true,
@@ -234,6 +234,45 @@ const authCtrl = {
                 success: false,
                 message: "Error in forget Password",
               });
+        }
+    },
+    resetPassword:async(req,res,next)=>{
+        try {
+            const {email,password}=req.body;
+            const {otp}=req.body;
+            const dbOtp = await Otp.findOne({email});
+            if(!dbOtp)
+            {   
+                return res.status(401).json({
+                    message:"Invalid Otp or Email Id" 
+                })
+            }
+            
+            if(dbOtp.otp!=otp)
+            {
+                return res.status(401).json({
+                    message:"Invalid Otp"
+                })
+            }
+            const hashedPassword=await bcryptjs.hash(password,10);
+            const updateUser=await User.findOneAndUpdate({email},{
+                password:hashedPassword
+            });
+            if(!updateUser)
+            {
+                return res.status(401).json({
+                    message:"User not found"
+                })
+            }
+            await Otp.findOneAndDelete({email});
+            res.json({
+                success: true,
+                message: "Password has been reset successfully",
+              });
+        } catch (error) {  
+            return res.status(401).json({
+                message:"error In resetPassword"
+            })                          
         }
     },
     signOut:async(req,res)=>{

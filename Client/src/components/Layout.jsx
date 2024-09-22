@@ -1,23 +1,25 @@
 import React from "react";
 import Sidebar from "./SideBar";
 import Navbar from "./Navbar";
-// import Player from "./Player";
-import state from "../store";
+import Player from "./Player";
+import Album from "./Album";
+// import state from "../store";
 
 const Layout = () => {
  
   
   return (
-    <div className="h-screen bg-[#141414]">
-      <div className="h-[100%] flex">
+    <div className="h-screen ">
+      <div className="h-[100%] flex ">
         <Sidebar />
-        <div className="w-[100%]  px-6 pt-4 rounded bg-[#121212] text-white overflow-auto lg:w-[100%] lg:ml-0">
+        <div className="w-[100%]  px-6 pt-4 rounded  text-white overflow-auto lg:w-[100%] lg:ml-0">
           <Navbar />
-          {/* children */}
+         <div className="h-[100%]">
+          <Album />
+         <Player className=""/>
+         </div>
         </div>
-      </div>
-      {/* <Player /> */}
-      <h1>hleoo</h1>
+      </div>   
     </div>
   );
 };

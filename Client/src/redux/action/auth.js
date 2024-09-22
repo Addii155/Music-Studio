@@ -52,7 +52,6 @@ export const LogoutUser = () => async (dispatch) => {
       }
       
     );
-    console.log(data);
     
     dispatch(logoutSuccess());
 
