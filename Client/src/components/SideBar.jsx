@@ -40,6 +40,7 @@ const Sidebar = () => {
       <div className="p-8 rounded-2xl flex items-center justify-between bg-[#282828] ">
         <div className="flex items-center gap-6">
           <img src={assets.stack_icon} className="w-8" alt="" />
+          
           <p className="font-bold ">Your Library</p>
         </div>
       </div>
