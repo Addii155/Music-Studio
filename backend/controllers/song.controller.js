@@ -130,7 +130,7 @@ const songCtrl = {
     }),
     getAllSong: TryCatch(async (req, res) => {
         const songs = await Song.find();
-        console.log(songs);
+        // console.log(songs);
         res.json(songs);
     }),
 }

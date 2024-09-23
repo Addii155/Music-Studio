@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import PlayListCard from "./PlayListCard";
 // import { UserData } from "../context/User";
 import { useModeToggle } from "../components/mode-toggle";
+import { FiHeart } from "react-icons/fi";
 
 const getCurrentMode = () => useModeToggle.getState().currentMode;
 const Sidebar = () => {
@@ -14,8 +15,6 @@ const Sidebar = () => {
   return (
     <div className="w-[25%] h-full p-4 flex-col gap-4 text-white hidden lg:flex  ">
       <div className="flex items-center gap-3 pl-4 pt-4 cursor-pointer mb-4  ">
-
-
         <img src="./public/logo96.png" className="w-12 ml-8" alt="" width={"24px"} height={"24px"} />
         <h2 className={`font-bold text-2xl
           ${theme === "light" ? "text-black" : "text-white"}
@@ -43,8 +42,11 @@ const Sidebar = () => {
           <img src={assets.stack_icon} className="w-8" alt="" />
           <p className="font-bold ">Your Library</p>
         </div>
-
       </div>
+      <div className="bg-[#282828] flex items-center justify-center h-[15%] rounded-2xl hover:bg-slate-800 cursor-pointer onClick:bg-[#282828]">
+        <h2 className="font-bold text-xl">Favouite</h2>
+         <FiHeart className="w-12 ml-4"/>
+        </div>
       <div className="bg-[#282828] h-[15%] rounded-2xl">
 
         <div className="flex items-center flex-col  pt-2 pl-8 cursor-pointer ">

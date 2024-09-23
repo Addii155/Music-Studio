@@ -5,15 +5,16 @@ const MusicCard = ( {song}) => {
      const {setSong} = useSong();
     const onClickHandler = () => {
         setSong(song);
-       
     }
     return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg bg-[#282828]">
-            <div className="relative bg-red-500 ">
-                <img className="w-full h-full " src= {song.thumbnail.url}
+        <div className="lg:w-56 hover:scale-105 rounded overflow-hidden shadow-lg bg-[#282828]">
+            <div className="relative ">
+                <div className='w-full h-36'>
+                <img  src= {song.thumbnail.url}
                  alt="Album Art" 
-                 height={"200px"}
+                  className="w-[100%] h-[100%] object-cover rounded"
                  />
+                </div>
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity">
                     <FaPlay className="text-white text-4xl"  
                     onClick={onClickHandler}
@@ -24,9 +25,6 @@ const MusicCard = ( {song}) => {
                 <div className=" text-md text-white  ">
                     {song.title}
                     </div>
-                <p className="text-gray-700 text-base">
-                    {song.description}
-                    </p>
             </div>
         </div>
     );

@@ -21,7 +21,7 @@ const AnimatedBars = () => {
   }, []);
 
   return (
-    <div className="flex items-end ms-auto">
+    <div className="flex items-end ms-auto bg-white">
       <div className="bg-primary rounded me-1 w-[3px] h-[heights[0]]"></div>
       <div className="bg-primary rounded me-1 w-[3px] h-[heights[1]]"></div>
       <div className="bg-primary rounded me-1 w-[3px] h-[heights[2]]"></div>

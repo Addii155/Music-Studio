@@ -24,16 +24,16 @@ const Album = () => {
                <h1 className='text-2xl font-bold text-center'>
                   Top hits song 2024
                </h1>
-               <div className='grid ml-4  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mt-4'>
+               <div className='grid ml-4  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6  mt-4'>
                   {song && song.map((song) => (
                      <MusicCard key={song._id} song={song} />
                   ))}
-                 <div className="flex items-end ms-auto">
+                 {/* <div className="flex items-end ms-auto">
       <div className="bg-primary rounded me-1" style={{ width: '3px', height: '0.308138px' }}></div>
       <div className="bg-primary rounded me-1" style={{ width: '3px', height: '10.033px' }}></div>
       <div className="bg-primary rounded me-1" style={{ width: '3px', height: '0.321982px' }}></div>
       <div className="bg-primary rounded" style={{ width: '3px', height: '10.0696px' }}></div>
-    </div>
+    </div> */}
                </div>
             </section>
             <AnimatedBars/>
