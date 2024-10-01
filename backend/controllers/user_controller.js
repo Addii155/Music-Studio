@@ -7,7 +7,8 @@ const userCtrl={
     addFavourateSong:TryCatch(async(req,res)=>{
         
         const {SongId}=req.params;
-        // console.log(SongId)
+        console.log('call')
+        console.log(SongId)
         if(!SongId)
         {
             return res.json({
