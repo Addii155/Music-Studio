@@ -15,11 +15,20 @@ const artistCtrl={
                 url:cloud.secure_url
             }
         })
-        // console.log(newartist)
+        // console.log(newartist) 
 
         return res.status(201).json({
             msg:"new artist add"
         })
+    }),
+    getAllArtist:TryCatch(async(req,res)=>{
+        const artists=await Artist.find();
+        res.json(artists);
+    }),
+    artistallMusic:TryCatch(async(req,res)=>{
+        const artist=await Artist.findById(req.params.id);
+        console.log(artist)
+        res.json(artist);
     })
 }
 

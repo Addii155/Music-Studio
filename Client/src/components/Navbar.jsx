@@ -8,6 +8,7 @@ import { ModeToggle } from "../components/mode-toggle";
 import { useModeToggle } from "../components/mode-toggle";
 import { useSelector } from "react-redux";
 import search from "../assets/search.png";
+import { GiGuitar } from "react-icons/gi";
 const getCurrentMode = () => useModeToggle.getState().currentMode;
 
 const Navbar = () => {
@@ -22,18 +23,15 @@ const Navbar = () => {
   }
   return (
     <>
+    {/* <div></div> */}
      <div className={`w-full flex justify-between items-center font-semibold 
        ${theme === "light" ? "bg-white text-black" : "bg-black text-white"}
        py-4`}>
   <div className="flex items-center gap-2 lg:flex">
-    <img
-      src="./public/logo96.png"
-      className="w-12  block lg:hidden"
-      alt="Logo"
-      width="24px"
-      height="24px"
-    />
-    <h1 className="font-bold text-2xl lg:hidden">Music Studio</h1>
+  <GiGuitar className="w-12 h-12  block lg:hidden" />
+  <h1 className="font-bold text-2xl lg:hidden">MuziK </h1>
+      {/* src="./logo96.png" */}
+     
   </div>
 
   <div className="flex items-center gap-4">

@@ -4,6 +4,8 @@ import { useSong } from '../store/song';
 import CustomPlayer from './CustomPlayer';
 
 const Player = () => {
+
+  
   const { song: currsong } = useSong();
   const [song, setsong] = useState(null);
   const [duration, setduration] = useState(null);
@@ -18,7 +20,7 @@ const Player = () => {
 
   if (!song || song.length === 0 || !song.audio?.url) return null;
 
-  // console.log(song);
+  // console.log(pathname);
   return (
 
     // <div className="w-[100%]  md:2/4 mb-4 lg:w-2/4 xl:w-2/4 fixed bottom-0 mx-auto p-4 rounded shadow-lg bg-white dark:bg-black dark:border-2 dark:border-gray-700 ">

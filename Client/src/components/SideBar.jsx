@@ -8,7 +8,7 @@ import { MdHomeFilled } from "react-icons/md";
 import like_icon from "../assets/like.png"
 import { useModeToggle } from "../components/mode-toggle";
 import { FiHeart } from "react-icons/fi";
-
+import { GiGuitar } from "react-icons/gi";
 const getCurrentMode = () => useModeToggle.getState().currentMode;
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -19,10 +19,11 @@ const Sidebar = () => {
   return (
     <div className="w-[25%] h-full p-4 flex-col gap-4 text-white hidden lg:flex  ">
       <div className="flex items-center gap-3 pl-4 pt-4 cursor-pointer mb-4  ">
-        <img src="./public/logo96.png" className="w-12 ml-8" alt="" width={"24px"} height={"24px"} />
+       <GiGuitar className="w-12 h-12" />
         <h2 className={`font-bold text-2xl
           ${theme === "light" ? "text-black" : "text-white"}
-          `}>Music studio</h2>
+          `}>Muzik</h2>
+          
       </div>
       <div className="bg-[#282828] h-[15%] gap-2 p-4 flex flex-col justify-around rounded-2xl">
 

@@ -41,12 +41,14 @@ import songRouter from './routes/song.Router.js';
 import artistRouter from './routes/artist.Router.js';
 import userSongRouter from './routes/userSong.Router.js';
 import aiRouter from './routes/ai.Router.js';
+import albumRouter from './routes/album.Router.js';
 
 app.use("/api/v1",authRouter);
 app.use("/api/v1",songRouter);
 app.use("/api/v1",artistRouter);
 app.use("/api/v1",userSongRouter);
 app.use("/api/v1",aiRouter);
+app.use("/api/v1" ,albumRouter);
 
 // app.get('/',(req,res)=>{
 //     res.render("home")

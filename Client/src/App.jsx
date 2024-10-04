@@ -9,6 +9,7 @@ import Layout from './components/Layout';
 import GenerateContent from './components/Gemini';
 import { useStore } from './store';
 import { ThemeProvider } from "@/components/theme-provider"
+import ArtistPage from './pages/Artist';
 function App() {
 
 
@@ -26,6 +27,7 @@ function App() {
      
       <Route path="/register" element={<Register />} />
       <Route path='/login' element={<Login />} />
+      <Route path="/artist/:id" element={<ArtistPage />} />
     </Routes>
      </BrowserRouter> 
 
