@@ -64,69 +64,92 @@ const songCtrl = {
         }
     }),
     addSong: TryCatch(async (req, res) => {
-        // console.log("req.body:")
-        const { albumId } = req.body;
+        const { albumId, artistId } = req.body;
         const file = req.file;
-        // console.log("File:", file); 
-
+    
         if (!file) {
             return res.status(400).json({
                 message: "No file uploaded",
             });
         }
-
+    
+        // Parse metadata from the audio file
         const metadata = await parseFile(file.path);
-        // console.log("Metadata:", metadata);
-
-        let imagePath = null;
-
+    
+        let thumbnailSong = null; // Initialize variable for thumbnail upload
+    
+        // Check if the song has an image in the metadata
         if (metadata.common.picture && metadata.common.picture.length > 0) {
             const picture = metadata.common.picture[0];
-            // console.log(`Image format: ${picture.format}`);
-            // console.log(`Image size: ${picture.data.length} bytes`);
-
+    
+            // Define the directory for storing album art
             const directory = "./backend/uploads/songIcon";
             if (!fs.existsSync(directory)) {
                 fs.mkdirSync(directory);
             }
-
+    
+            // Create a unique image name and save the image
             const imageName = `album_art_${uuidv4()}.${picture.format.split('/')[1]}`;
-            imagePath = path.join(directory, imageName);
+            const imagePath = path.join(directory, imageName);
             fs.writeFileSync(imagePath, picture.data);
+    
+            // Upload the thumbnail to cloudinary
+            thumbnailSong = await cloudinary.v2.uploader.upload(imagePath, { resource_type: "image" });
+    
+            if (!thumbnailSong) {
+                return res.json({ msg: "Music image upload failed" });
+            }
         }
-
-        // Handle saving the song and metadata to the database
-        const title = file.originalname;
-        const album = await Album.findById(req.body.albumId);
+    
+        // Check if the album exists
+        const album = await Album.findById(albumId);
         if (!album) {
-            return res.json({ msg: "Album not exist" });
+            return res.status(400).json({ msg: "Album does not exist" });
         }
+    
+        // Check if the artist exists
+        const artist = await Artist.findById(artistId);
+        if (!artist) {
+            return res.status(400).json({ msg: "Artist does not exist" });
+        }
+    
+        // Upload the audio file to cloudinary
         const cloud = await cloudinary.v2.uploader.upload(file.path, { resource_type: "video" });
         if (!cloud) {
-            return res.json({ msg: "Audio file upload failed" });
+            return res.status(400).json({ msg: "Audio file upload failed" });
         }
-        const thumbnailSong = await cloudinary.v2.uploader.upload(imagePath, { resource_type: "image" });
-
-        if (!thumbnailSong) {
-            return res.json({ msg: "music image upload failed" });
-        }
-        const newsong = await Song.create({
-            title,
-            audio: { id: cloud.public_id, url: cloud.secure_url },
+    
+        // Create the new song
+        const newsongData = {
+            title: file.originalname,
+            audio: {
+                id: cloud.public_id,
+                url: cloud.secure_url,
+            },
             album: album._id,
-            thumbnail: {
+            artist: artist._id,
+        };
+    
+        // Only add the thumbnail field if thumbnailSong is available
+        if (thumbnailSong) {
+            newsongData.thumbnail = {
                 id: thumbnailSong.public_id,
-                url: thumbnailSong.secure_url // Save the image path to the database
-            },// Save the image path to the database
-        });
-
+                url: thumbnailSong.secure_url,
+            };
+        }
+    
+        const newsong = await Song.create(newsongData);
+    
+        // Update album and artist with the new song
         album.albumSongs.push(newsong._id);
+        artist.songs.push(newsong._id);
+    
         await album.save();
-        return res.json({
-            message: "Song Added",
-            imagePath,
-        });
+        await artist.save();
 
+        return res.json({
+            message: "Song added successfully",
+        });
     }),
     getAllSong: TryCatch(async (req, res) => {
         const songs = await Song.find();

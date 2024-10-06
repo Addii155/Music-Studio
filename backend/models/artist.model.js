@@ -12,10 +12,10 @@ const artistSchema=new Schema({
         id:String,
         url:String
     },
-    album:[
+    songs:[
         {
             type:mongoose.Schema.ObjectId,
-            ref:'Album'
+            ref:'Song'
         }
     ],
     DOB:{

@@ -19,17 +19,17 @@ const Sidebar = () => {
   return (
     <div className="w-[25%] h-full p-4 flex-col gap-4 text-white hidden lg:flex  ">
       <div className="flex items-center gap-3 pl-4 pt-4 cursor-pointer mb-4  ">
-       <GiGuitar className="w-12 h-12" />
+        <GiGuitar className="w-12 h-12" />
         <h2 className={`font-bold text-2xl
           ${theme === "light" ? "text-black" : "text-white"}
           `}>Muzik</h2>
-          
+
       </div>
       <div className="bg-[#282828] h-[15%] gap-2 p-4 flex flex-col justify-around rounded-2xl">
 
         <div
           className={`flex items-center gap-4 pl-8 cursor-pointer 
-            ${location.pathname === "/" && " text-black bg-white rounded-2xl p-2"}
+            ${location.pathname === "/" && " text-black bg-white rounded-2xl "}
             `}
           onClick={() => navigate("/")}
         >
@@ -37,10 +37,10 @@ const Sidebar = () => {
             location.pathname === "/" ? (
               <MdHomeFilled className="w-6 h-6 " />
             ) : (
-              <img src={assets.home_icon} className="w-6" alt="" />
+              <img src={assets.home_icon} className="w-6 h-6" alt="" />
             )
           }
-          <p className="font-bold" >Home</p>
+          <p className="font-bold p-2" >Home</p>
         </div>
         <div
           className="flex items-center gap-3 pl-8 cursor-pointer"
@@ -53,7 +53,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="p-8 rounded-2xl flex items-center justify-between bg-[#282828] ">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 cursor-pointer hover:scale-105 duration-300" onClick={() => navigate("/favourite")}>
           <img src={like_icon} alt="like" width={"24px"} height={"24px"} />
           <h2 className="font-bold text-xl">Favouite</h2>
         </div>

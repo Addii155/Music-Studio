@@ -159,8 +159,15 @@ const authCtrl = {
     resendOtp: async(req,res,next)=>{
         try {
             const {email} =req.body;
-            const otp= Math.floor(1000+ Math.random()*9000);
             const exitEmail=await User.findOne({email})
+            if(!exitEmail)
+            {
+                return res.status(400).json({
+                    message:"Email not exit"
+                })
+            }
+            const otp= Math.floor(1000+ Math.random()*9000);
+           
             if(exitOtp) 
             {
                 const currentTime=Date.now();
@@ -182,7 +189,7 @@ const authCtrl = {
                }
 
             }else{
-                const newOtp= Otp.create({
+                const newOtp=await Otp.create({
                     email,
                     otp
                 })
@@ -238,8 +245,7 @@ const authCtrl = {
     },
     resetPassword:async(req,res,next)=>{
         try {
-            const {email,password}=req.body;
-            const {otp}=req.body;
+            const {email,password,otp}=req.body;
             const dbOtp = await Otp.findOne({email});
             if(!dbOtp)
             {   

@@ -18,13 +18,13 @@ const songSchema = new Schema({
         id: String,  
         url: String
     },
-    singer: {
-        type: String,
-        // required: true   
-    },
     album: {
         type: mongoose.Schema.ObjectId,
         ref: 'Albums' 
+    },
+    artist: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Artist'
     }
 }, {
     timestamps: true,  

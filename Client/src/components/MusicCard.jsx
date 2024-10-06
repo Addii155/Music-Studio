@@ -4,7 +4,12 @@ import { useSong } from '../store/song';
 import like_icon from "../assets/like.png";
 import like_heart from "../assets/like.svg";
 import { onlikeClick } from '../store/song';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const MusicCard = ({ song }) => {
+
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
     const { setSong } = useSong();
     const [liked, setLiked] = useState(false);
     const onClickHandler = () => {
@@ -12,14 +17,24 @@ const MusicCard = ({ song }) => {
     }
 
     const onLikeClick = () => {
+        // console.log(user)
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+        if (liked) {
+            setLiked(false);
+            onlikeClick({ id: song._id });
+            return;
+        }
         setLiked(!liked);
         onlikeClick({ id: song._id });
     }
     return (
-        <div className="lg:w-72  hover:scale-105 rounded overflow-hidden shadow-lg bg-[#282828]">
+        <div className="lg:w-72 rounded-  hover:scale-105 rounded-xl my-2 overflow-hidden shadow-lg bg-[#282828]">
             <div className="relative ">
                 <div className='w-full h-36'>
-                    <img src={song.thumbnail.url}
+                    <img src={song?.thumbnail?.url}
                         alt="Album Art"
                         className="w-[100%] h-[100%] object-cover rounded"
                     />
