@@ -16,7 +16,7 @@ function App() {
 
   const {user,auth} = useSelector((state)=>state.auth);
   const dispatch=useDispatch();
-  
+  // console.log(user)
   
   return (
     <>
@@ -25,11 +25,10 @@ function App() {
     
     <Routes>
       <Route path="/"  element={<Home />} />
-     
       <Route path="/register" element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path="/artist/:id" element={<ArtistPage />} />
-      <Route path='/favourite' element={<FavouriteSong />} />
+      <Route path='/favourite' element= {user?   <FavouriteSong/> :<Login  />} />
     </Routes>
      </BrowserRouter> 
 

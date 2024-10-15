@@ -21,7 +21,7 @@ const ArtistPage = () => {
         // Fetch artist details (replace with your API endpoint)
         const artistResponse = await fetch(`http://localhost:8000/api/v1/getartist/allsong/${id}`);
         const artistData = await artistResponse.json();
-        console.log(artistData);
+        // console.log(artistData);
         setSongs(artistData.songs);
         setArtist(artistData);
 

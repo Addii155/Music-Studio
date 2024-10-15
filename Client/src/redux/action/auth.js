@@ -24,38 +24,37 @@ export const LoginUser = (email, password) => async (dispatch) => {
         withCredentials: true,
      }
     );
+    console.log(data)
     
     dispatch(loginSuccess(data));
 
   } catch (error) {
-    dispatch({
-      type: "LoginFailure",
-      payload: error.response?.data?.message || "Login failed",
-    });
+    dispatch(logoutFailure(error.response?.data?.message || "Logout failed"));
   }
 };
-export const LogoutUser = () => async (dispatch) => {
+export  const LogoutUser = () => async (dispatch) => {
   try {
     dispatch(logoutRequest());
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   withCredentials: true,
       
-    };
+    // };
 
     const { data } = await axios.get(
-      "http://localhost:8000/api/v1/signout",
-      {
-        withCredentials: true,
-      }
-      
+
+      "http://localhost:8000/api/v1/signout"
+    ,{
+      withCredentials:true
+    }
     );
-    
+    // console.log(data)
     dispatch(logoutSuccess());
 
   } catch (error) {
+    console.log(error)
     dispatch({
       type: "LoginFailure",
       payload: error.response?.data?.message || "Login failed",

@@ -8,11 +8,11 @@ const userCtrl={
         
         const {SongId}=req.params;
         // console.log('call')
-        console.log(SongId)
+        // console.log(SongId)
         if(!SongId)
         {
             return res.json({
-                message:"provide song id"
+                message:"provide songid not valid"
             })
         }
         const song=await Song.findById(SongId);
@@ -23,14 +23,19 @@ const userCtrl={
             })
         }
         const user=req.user;
-
+         let message;
         if(user.favoriteSong.includes(SongId)){
-            return res.status(400).json({ message: "Song already in favorites" });
+           const index=user.favoriteSong.indexOf(SongId);
+           user.favoriteSong.splice(index,1);
+           message = "Song removed from favorites";
         }
-        user.favoriteSong.push(SongId);
+        else {
+            user.favoriteSong.push(SongId); // Add song to favorites
+            message = "Song added to favorites";
+        }
         await user.save();
         res.status(200).json({
-             message: "Song added to favorites", 
+             message, 
              favoriteSongs: user.favoriteSongs
              });
     }),
@@ -39,7 +44,7 @@ const userCtrl={
         
         const populatedUser= await User.findById(user._id).populate('favoriteSong')
         if (!populatedUser || !populatedUser.favoriteSong.length) {
-            return res.status(404).json({
+            return res.status(200).json({
                 message: "No favorite songs found for this user"
             });
         }

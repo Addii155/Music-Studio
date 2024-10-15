@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { useSong } from '../store/song';
 import like_icon from "../assets/like.png";
@@ -15,9 +15,17 @@ const MusicCard = ({ song }) => {
     const onClickHandler = () => {
         setSong(song);
     }
+    // console.log(user)
+    
+    useEffect(()=>{
+        if(user && user.favoriteSong.find(songId =>songId===song._id))
+        {
+            setLiked(true)
+        }
+    },[])
 
     const onLikeClick = () => {
-        // console.log(user)
+        
         if (!user) {
             navigate("/login");
             return;

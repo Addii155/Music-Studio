@@ -54,7 +54,7 @@ const FavouriteSong = () => {
                             Favourite Song
                         </h1>
                         {
-                            songs.length > 0 ? (
+                           songs && songs.length > 0 ? (
                                 <div className='grid mx-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 lg:gap-2 px-1 md:gap-4 gap-6 mt-4'>
                                     {songs.length > 0 && songs.map((song) => (
                                         <MusicCard key={song._id} song={song} />
@@ -62,7 +62,9 @@ const FavouriteSong = () => {
 
                                 </div>
                             ) : (
-                                <div>No songs found</div>
+                                <div>
+                                    <p className=" text-center">No songs found</p>
+                                </div>
                             )
                         }
                         </div>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    user:  localStorage.getItem('user') ? localStorage.getItem('user') : null,
     token: localStorage.getItem('token') || null,
     loading: false,
     error: null,
@@ -16,14 +16,13 @@ const authSlice = createSlice({
             state.loading = true;
         },
         loginSuccess: (state, action) => {
-            console.log(action.payload);
             state.loading = false;
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.auth = true;
             // Save user and token to localStorage
-            localStorage.setItem('user', JSON.stringify(action.payload.user));
-            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('user', JSON.stringify(action.payload?.user));
+            localStorage.setItem('token', action.payload?.token);
         },
         loginFailure: (state, action) => {
             state.loading = false;

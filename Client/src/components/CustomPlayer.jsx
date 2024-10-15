@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player/lazy';
 import playicon from '../assets/play.png';
 import pauseicon from '../assets/pause.png';
 import volumeimg from "../assets/volume.png";
-import loaderIcon from "../assets/Spinner.svg"; // Add your loader here
+import loaderIcon from "../assets/35.gif"; // Add your loader here
 import { FaVolumeHigh } from "react-icons/fa6";
 import { FaVolumeMute } from "react-icons/fa"
 import { FaVolumeDown } from "react-icons/fa";
@@ -63,10 +63,9 @@ const CustomPlayer = ({ song }) => {
         />
       )}
 
-      {/* Custom Loader */}
      
       {/* Custom Controls */}
-      <div className="flex items-center justify-between mt-2">
+      <div className="flex items-center justify-between mt-1">
         <button
           onClick={() => setPlaying(!playing)}
           className="text-white hover:bg-gray-700 p-2 rounded"
@@ -102,15 +101,15 @@ const CustomPlayer = ({ song }) => {
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-4">
+      <div className="mt-1">
         <div className="w-full flex justify-between ">
           <span>{formatCurrrenttime(progress)}</span>
           <span>{formatCurrrenttime(songduration)}</span>
         </div>
         <div>
-        {buffer && (
+        { buffer && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <img src={loaderIcon} alt="Loading..."   className="w-8 h-8" />
+          <img src={loaderIcon} alt="Loading..."   className="w-8 h-8 " />
         </div>
       )}
         <input

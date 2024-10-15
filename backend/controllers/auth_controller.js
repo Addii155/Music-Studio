@@ -126,12 +126,12 @@ const authCtrl = {
                         message:"Password not matched"
                     })
                 }
-                if(user.verify==false)
-                {
-                    return res.status(401).json({
-                        message:"email not verify"
-                    })
-                }
+                // if(user.verify==false)
+                // {
+                //     return res.status(401).json({
+                //         message:"email not verify"
+                //     })
+                // }
                 const payload={
                     id:user._id,
                     // email:user.email

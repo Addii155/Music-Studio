@@ -1,8 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { MdHomeFilled } from "react-icons/md";
+import AddPlaylist from "./AddPlaylist";
 // import PlayListCard from "./PlayListCard";
 // import { UserData } from "../context/User";
 import like_icon from "../assets/like.png"
@@ -14,6 +15,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const theme = getCurrentMode();
+  // const [ismodelopen, setismodelopen] = useState(false)
 
   //   const { user } = UserData();
   return (
@@ -69,14 +71,16 @@ const Sidebar = () => {
           </div>
           <div className="flex justify-center items-center w-full">
             <button className="flex items-center justify-center w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors duration-300">
-              <span>Add new Playlist</span>
+             {/* <AddPlaylist setismodelopen={setismodelopen}> */}
+             <span>Add new Playlist</span>
+             {/* </AddPlaylist> */}
             </button>
           </div>
         </div>
       </div>
 
-      <div className="p-6 m-2 bg-[#282828] rounded-lg font-semibold flex flex-col items-start justify-start gap-2 pl-6 mt-6 shadow-lg">
-        <h1 className="text-3xl font-bold text-white mb-2">Let's find some podcasts to follow</h1>
+      <div className="p-6 m-2  bg-[#282828] rounded-lg font-semibold flex flex-col items-start justify-start gap-2 pl-6 mt-12 shadow-lg">
+        <h1 className="text-3xl font-bold text-white ">Let's find some podcasts to follow</h1>
         <p className="text-lg font-light text-gray-300 mb-4">We'll keep you updated on new episodes</p>
         <button className="px-6 py-2 bg-white text-black text-lg rounded-full mt-4 hover:bg-gray-200 transition duration-300">
           Browse Podcasts

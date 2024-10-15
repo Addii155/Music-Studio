@@ -7,8 +7,8 @@ import { useLocation } from 'react-router-dom';
 // import state from "../store";
 
 const Layout = () => {
- const location = useLocation();
-  console.log(location.pathname);
+//  const location = useLocation();
+//   console.log(location.pathname);
   return (
     <div className="h-screen  ">
       <div className="h-[100%] flex ">
