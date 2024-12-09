@@ -24,7 +24,7 @@ export const LoginUser = (email, password) => async (dispatch) => {
         withCredentials: true,
      }
     );
-    console.log(data)
+    // console.log(data)
     
     dispatch(loginSuccess(data));
 
@@ -32,32 +32,28 @@ export const LoginUser = (email, password) => async (dispatch) => {
     dispatch(logoutFailure(error.response?.data?.message || "Logout failed"));
   }
 };
-export  const LogoutUser = () => async (dispatch) => {
+export const LogoutUser = () => async (dispatch) => {
   try {
     dispatch(logoutRequest());
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   withCredentials: true,
+
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem("token");
+
+    const  data  = await axios.get("http://localhost:8000/api/v1/signout", {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       
-    // };
+    });
 
-    const { data } = await axios.get(
-
-      "http://localhost:8000/api/v1/signout"
-    ,{
-      withCredentials:true
-    }
-    );
-    // console.log(data)
+    console.log("Logout response:", data);
     dispatch(logoutSuccess());
-
   } catch (error) {
-    console.log(error)
+    console.error("Logout error:", error);
     dispatch({
-      type: "LoginFailure",
-      payload: error.response?.data?.message || "Login failed",
+      type: "LogoutFailure",
+      payload: error.response?.data?.message || "Logout failed",
     });
   }
 };

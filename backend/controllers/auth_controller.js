@@ -283,7 +283,7 @@ const authCtrl = {
     },
     signOut:async(req,res)=>{
         try {
-            // console.log('signOut call at backend')
+            console.log('signOut call at backend')
             return res.clearCookie('token').status(201).json({
                 message:"signOut Successfully"
             })

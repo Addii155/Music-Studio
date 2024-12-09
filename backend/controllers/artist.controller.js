@@ -4,7 +4,7 @@ import cloudinary from "cloudinary"
 
 const artistCtrl={
     addAccount:TryCatch(async(req,res)=>{
-        const {name,bio}=req.body;
+        const {name,bio }=req.body;
         const file = req.file;
         const cloud=await cloudinary.v2.uploader.upload(file.path)
         const newartist=  await Artist.create({
@@ -19,9 +19,6 @@ const artistCtrl={
             msg:"new artist add"
         })
     }),
-    // addSong:TryCatch(async(req,res)=>{
-        
-    // })
     getAllArtist:TryCatch(async(req,res)=>{
         const artists=await Artist.find();
         res.json(artists);

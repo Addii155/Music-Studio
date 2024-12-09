@@ -4,25 +4,26 @@ import { useSong } from '../store/song';
 import like_icon from "../assets/like.png";
 import like_heart from "../assets/like.svg";
 import { onlikeClick } from '../store/song';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setSong } from '../redux/reducer/musicSlice'
 const MusicCard = ({ song }) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
-    const { setSong } = useSong();
     const [liked, setLiked] = useState(false);
     const onClickHandler = () => {
-        setSong(song);
+        dispatch(setSong({ song, songId: song._id, isPlaying: true }));
     }
-    // console.log(user)
     
     useEffect(()=>{
         if(user && user.favoriteSong.find(songId =>songId===song._id))
         {
             setLiked(true)
         }
-    },[])
+        else setLiked(false)
+    },[user,song])
 
     const onLikeClick = () => {
         

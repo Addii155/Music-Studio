@@ -14,7 +14,6 @@ const songCtrl = {
     addAlbum: TryCatch(async (req, res) => {
         const { title, description } = req.body;
         const file = req.file;
-
         if (!file) {
             return res.status(400).json({
                 message: "No file uploaded",
@@ -22,13 +21,6 @@ const songCtrl = {
         }
 
         try {
-            // const artist = await Artist.findById(singer)
-            // // console.log(artist);
-            // if (!artist) {
-            //     return res.json({
-            //         message: "No artist found"
-            //     })
-            // }
             const cloud = await cloudinary.v2.uploader.upload(file.path, {
                 resource_type: "image", // Adjust resource type if not an image
             });

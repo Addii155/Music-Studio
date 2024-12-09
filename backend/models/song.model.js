@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-// Define the song schema
+
 const songSchema = new Schema({
     title: {
         type: String,

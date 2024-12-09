@@ -6,13 +6,10 @@ import Player from '../components/Player';
 
 const Home = () => {
     // const snap = snapshot(state);
-   
   return (
    <>
      <Layout/>
-     <Player/>
     
-   
    </>
   )
 }

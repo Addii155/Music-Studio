@@ -19,8 +19,6 @@ export const onlikeClick= async({id})=>{
         withCredentials: true,
       }
     );
-    
-    console.log(response);
 
   } catch (error) {
     console.log(error);

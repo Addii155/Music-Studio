@@ -10,16 +10,18 @@ import like_icon from "../assets/like.png"
 import { useModeToggle } from "../components/mode-toggle";
 import { FiHeart } from "react-icons/fi";
 import { GiGuitar } from "react-icons/gi";
+import { Heart } from "lucide-react";
 const getCurrentMode = () => useModeToggle.getState().currentMode;
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const theme = getCurrentMode();
+  const [isPopupOpen, setisPopupOpen] = useState(false) 
   // const [ismodelopen, setismodelopen] = useState(false)
 
   //   const { user } = UserData();
   return (
-    <div className="w-[25%] h-full p-4 flex-col gap-4 text-white hidden lg:flex  ">
+    <div className="w-[25%] overflow-auto h-full p-4 flex-col gap-4 text-white hidden lg:flex  ">
       <div className="flex items-center gap-3 pl-4 pt-4 cursor-pointer mb-4  ">
         <GiGuitar className="w-12 h-12" />
         <h2 className={`font-bold text-2xl
@@ -30,7 +32,7 @@ const Sidebar = () => {
       <div className="bg-[#282828] h-[15%] gap-2 p-4 flex flex-col justify-around rounded-2xl">
 
         <div
-          className={`flex items-center gap-4 pl-8 cursor-pointer 
+          className={`flex items-center gap-2 pl-4 cursor-pointer 
             ${location.pathname === "/" && " text-black bg-white rounded-2xl "}
             `}
           onClick={() => navigate("/")}
@@ -45,20 +47,39 @@ const Sidebar = () => {
           <p className="font-bold p-2" >Home</p>
         </div>
         <div
-          className="flex items-center gap-3 pl-8 cursor-pointer"
+          className="flex items-center gap-3 pl-4 cursor-pointer"
           onClick={() => navigate("/")}
         >
           {/* <img src={assets.search_icon} className="w-6" alt="" />
           <p className="font-bold">Search</p> */}
-          <img src={assets.stack_icon} className="w-8" alt="" />
+          <img src={assets.stack_icon} className="w-6" alt="" />
           <p className="font-bold ">Your Library</p>
         </div>
       </div>
-      <div className="p-8 rounded-2xl flex items-center justify-between bg-[#282828] ">
-        <div className="flex items-center justify-center gap-4 cursor-pointer hover:scale-105 duration-300" onClick={() => navigate("/favourite")}>
-          <img src={like_icon} alt="like" width={"24px"} height={"24px"} />
+      <div className={`p-4  rounded-2xl flex items-center justify-between bg-[#282828] 
+      ${location.pathname === "/favourite" && " text-black bg-white rounded-2xl "}
+      `}>
+        <div className="flex items-center justify-center gap-2 cursor-pointer pl-2"
+         onClick={() => navigate("/favourite")}>
+          <Heart alt="like"  className={`
+            ${location.pathname === "/favourite" ? "text-black" : "text-white w-6 h-6"}`}
+            />
           <h2 className="font-bold text-xl">Favouite</h2>
         </div>
+        {isPopupOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className=" bg-black p-6 rounded-lg shadow-lg w-[300px]">
+            <h2 className="text-lg font-bold mb-4">Your Library</h2>
+            <input type="text" className="w-full p-2 border text-black border-gray-300 rounded mb-4" />
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => setisPopupOpen(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       </div>
       {/* <div className="bg-[#282828] flex items-center justify-center h-[15%] rounded-2xl hover:bg-slate-800 cursor-pointer onClick:bg-[#282828]">
         </div> */}
@@ -71,9 +92,8 @@ const Sidebar = () => {
           </div>
           <div className="flex justify-center items-center w-full">
             <button className="flex items-center justify-center w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors duration-300">
-             {/* <AddPlaylist setismodelopen={setismodelopen}> */}
-             <span>Add new Playlist</span>
-             {/* </AddPlaylist> */}
+             
+             <span onClick={() => setisPopupOpen(true)}>Add new Playlist</span>
             </button>
           </div>
         </div>
@@ -87,6 +107,7 @@ const Sidebar = () => {
         </button>
       </div>
     </div>
+    
 
   );
 };

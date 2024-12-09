@@ -7,10 +7,14 @@ import loaderIcon from "../assets/35.gif"; // Add your loader here
 import { FaVolumeHigh } from "react-icons/fa6";
 import { FaVolumeMute } from "react-icons/fa"
 import { FaVolumeDown } from "react-icons/fa";
+import { useSelector , useDispatch } from 'react-redux';
+import  { setPause } from '../redux/reducer/musicSlice'
 const CustomPlayer = ({ song }) => {
-  const [playing, setPlaying] = useState(true);
+  const {isPlaying , currProgress} = useSelector(state=>state.music);
+  const dispatch = useDispatch();
+  const [playing, setPlaying] = useState(isPlaying);
   const [volume, setVolume] = useState(1); // Volume ranges from 0 to 1
-  const [progress, setProgress] = useState(0); // Progress in seconds
+  const [progress, setProgress] = useState(currProgress); // Progress in seconds
   const [songduration, setSongDuration] = useState(0); // Store the song's duration
   const playerRef = useRef(null); // Reference to the ReactPlayer instance
   const [buffer, setBuffer] = useState(false); // Buffering state
@@ -22,11 +26,12 @@ const CustomPlayer = ({ song }) => {
     }
   };
 
+
   // Handle seeking (when user interacts with the progress slider)
   const handleSeek = (value) => {
     setProgress(value);
     playerRef.current.seekTo(value / songduration); // Seek to the desired position in seconds
-    setPlaying(true); // Start playing
+    dispatch(setPause()); // Start playing
   };
 
   // Handle when the duration of the song is available
@@ -48,7 +53,7 @@ const CustomPlayer = ({ song }) => {
         <ReactPlayer
           ref={playerRef} // Attach the player reference
           url={song.audio.url}
-          playing={playing}
+          playing={isPlaying}
           volume={volume}
           playsinline={true}
           controls={false} // Hide native controls
@@ -59,7 +64,7 @@ const CustomPlayer = ({ song }) => {
           onDuration={handleDuration} // Extract the song's duration
           onBuffer={() => setBuffer(true)} // Show loader during buffering
           onBufferEnd={() => setBuffer(false)} // Hide loader when buffering ends
-          onEnded={() => setPlaying(false)}
+          onEnded={() => dispatch(setPause())}
         />
       )}
 
@@ -67,10 +72,12 @@ const CustomPlayer = ({ song }) => {
       {/* Custom Controls */}
       <div className="flex items-center justify-between mt-1">
         <button
-          onClick={() => setPlaying(!playing)}
+          onClick={() =>{
+            dispatch(setPause(!isPlaying))
+          }}
           className="text-white hover:bg-gray-700 p-2 rounded"
         >
-          {playing ? (
+          {isPlaying ? (
             <img src={pauseicon} alt="pause" className="w-6 h-6" />
           ) : (
             <img src={playicon} alt="play" className="w-6 h-6" />
@@ -115,7 +122,7 @@ const CustomPlayer = ({ song }) => {
         <input
           type="range"
           min={0}
-          max={songduration || 1} // Use songduration or fallback to 1
+          max={songduration || 1} 
           step={0.1}
           value={progress}
           onChange={(e) => handleSeek(parseFloat(e.target.value))} // Allow manual seeking
@@ -129,4 +136,4 @@ const CustomPlayer = ({ song }) => {
   );
 };
 
-export default CustomPlayer;
+export  {CustomPlayer};

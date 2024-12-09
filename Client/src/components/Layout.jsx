@@ -17,7 +17,6 @@ const Layout = () => {
           <Navbar />
          <div className="h-[100%]">
          <Album />
-         {/* <Player className=""/> */}
          </div>
         </div>
       </div>   

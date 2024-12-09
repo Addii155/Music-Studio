@@ -13,9 +13,13 @@ const albumCtrl = {
     },
     getOneAlbum: async (req, res) => {
         try {
-            const album = await Album.findById(req.params.id).populate(
-                "albumSongs"
-            );
+            const album = await Album.findById(req.params.id)
+            .populate({
+
+                path: "albumSongs",
+                populate: { path: "artist" }, // Nested populate for artist inside albumSongs
+            },
+        ).populate("artist");
             res.json(album);
         } catch (error) {
             return res.status(500).json({ msg: error.message });

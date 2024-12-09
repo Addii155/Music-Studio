@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "../redux/action/auth";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from "react-hot-toast"
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
@@ -19,9 +19,6 @@ const Login = () => {
       alert("Please enter email and password");
       return;
     }
-
-
-
     // Dispatch the login action
     dispatch(LoginUser(email, password));
   };
@@ -40,21 +37,6 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen max-h-screen">
-
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        />
-     
-      <ToastContainer />
       <div className="bg-black text-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-semibold text-center mb-8">
           Login to Spotify

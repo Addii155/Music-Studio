@@ -2,37 +2,40 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/SideBar";
 import Navbar from "../components/Navbar";
+import axios from "axios";
 // import Album from "./Album"; // Component to display songs
 import MusicCard from "../components/MusicCard";
 import Player from "../components/Player";
-import axios from "axios";
+// import Player from "./Player";
 
-const ArtistPage = () => {
-  const { id } = useParams();
-  const [artist, setArtist] = useState(null); // State to hold artist details
-  const [songs, setSongs] = useState([]); // State to hold the artist's songs
-  const [loading, setLoading] = useState(true); // Loading state
+const AlbumPage = () => {
+  const { id } = useParams(); 
+  const [artist, setArtist] = useState(null); 
+  const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-      const fetchArtistDetails = async () => {
-      setLoading(true); 
+    // Fetch the artist details and songs
+    const fetchArtistDetails = async () => {
+      setLoading(true); // Start loading
       try {
-        const artistResponse = await axios(`http://localhost:8000/api/v1/getartist/allsong/${id}`);
-        const artistData =  artistResponse.data;
-        setSongs(artistData.songs);
+        // Fetch artist details (replace with your API endpoint)
+        const artistResponse = await axios.get(`http://localhost:8000/api/v1/getalbum/${id}`);
+        console.log(artistResponse)
+        const artistData = await artistResponse.data;
+        console.log(artistData);
+        setSongs(artistData.albumSongs);
         setArtist(artistData);
       } catch (error) {
-
         console.log("Error fetching artist data:", error);
       }
       setLoading(false); // End loading
     };
 
     fetchArtistDetails();
-  }, [id]); 
-
+  }, []); 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state
+    return <div>Loading...</div>
   }
 
   return (
@@ -44,11 +47,11 @@ const ArtistPage = () => {
         
           <Navbar />
           <div className="h-[100%] bg-[#282828] rounded-lg">
-            {/* Artist Details Section */}
+
             <div className="artist-details mb-4 flex justify-evenly">
-              <img src={artist?.avater.url} alt="Artist" className="w-96 h-72 rounded-lg" />
+              <img src={artist?.thumbnail.url} alt="Artist" className="w-96 h-72 rounded-lg" />
             <div className="p-4">
-            <h1 className="text-8xl font-bold sm:text-4xl md:text-6xl">{artist?.name}</h1>
+            <h1 className="text-8xl font-bold  sm:text-4xl md:text-6xl">{artist?.artist.name}</h1>
             <p className="text-gray-400 font-bold ">{artist?.bio}</p>
             </div>
             <div></div>
@@ -73,4 +76,4 @@ const ArtistPage = () => {
   );
 };
 
-export default ArtistPage;
+export default AlbumPage;
