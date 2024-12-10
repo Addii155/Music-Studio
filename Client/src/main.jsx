@@ -7,7 +7,7 @@ import store from './redux/store.js';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from "@/components/theme-provider" 
 import { Play } from 'lucide-react';
-import Player from './components/Player.jsx';
+import Player from "./components/Player.jsx";
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

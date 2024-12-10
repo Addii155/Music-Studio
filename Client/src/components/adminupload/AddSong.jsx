@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 const AddSong = () => {
   const [allartists, setallartists] = useState(null);
   const [allalbums, setallalbums] = useState(null);
+  const [loading,setloading] = useState(false);
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -39,20 +40,25 @@ const AddSong = () => {
     fetchAlbums();
   }, []);
   const onSubmit = async (data) => {
+
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', data.description);
-    formData.append('thumbnail', data.thumbnail[0]); // Use first file
-    formData.append('audio', data.audio[0]);
-    formData.append('album', data.album);
-    formData.append('artist', data.artist);
+    formData.append('thumbnail', data.thumbnail[0]); 
+    formData.append('song', data.audio[0]);
+    formData.append('albumId', data.album);
+    formData.append('artistId', data.artist);
 
     try {
-      await axios.post('/api/song', formData, {
+      setloading(true);
+      const response = await axios.post('http://localhost:8000/api/v1/newsong', formData, {
+        withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
+      setloading(false);
       toast.success('Song added successfully');
     } catch (error) {
       toast.error('Failed to add song');
@@ -131,9 +137,15 @@ const AddSong = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          className={`w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition
+            ${loading ? disabled : ''}
+            `}
         >
-          Add Song
+         {
+          loading ? (
+           "loading..."
+          ): "Add Song"
+         }
         </button>
       </form>
     </div>

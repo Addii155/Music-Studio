@@ -3,7 +3,8 @@ const initialState = {
     currsong: null,
     songId: null,
     isPlaying: false,
-    currProgress: 0
+    currProgress: 0,
+    loading: false
 }
 
 const musicSlice =createSlice ({
@@ -11,20 +12,27 @@ const musicSlice =createSlice ({
     initialState ,
     reducers : {
         setSong : (state,action) => {
-            console.log(action.payload);
             state.currsong = action.payload.song;
             state.songId = action.payload.songId;
             state.isPlaying = action.payload.isPlaying;
+            localStorage.setItem("song",JSON.stringify(action.payload.song));
+            localStorage.setItem("songId",JSON.stringify(action.payload.songId));
+            localStorage.setItem("isPlaying",JSON.stringify(action.payload.isPlaying));
+            localStorage.setItem("currProgress",JSON.stringify(action.payload.currProgress));
         },
-        setPause :(state)=>{
+        setPause :(state,action)=>{
+            console.log(action.payload);
             state.isPlaying = !state.isPlaying;
+            localStorage.setItem("isPlaying",JSON.stringify(action.payload));
         },
-        setProgress:(state)=>{
-            state.currProgress = action.payload
+        setSongProgress:(state,action)=>{
+            console.log(action.payload);
+            state.currProgress = action.payload;
+            localStorage.setItem("currProgress",JSON.stringify(action.payload));
         }
 
     }
 })
 export default musicSlice.reducer;
 
-export const {setSong , setPause , setProgress} = musicSlice.actions
+export const {setSong , setPause , setSongProgress} = musicSlice.actions

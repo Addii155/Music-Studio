@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="p-6 text-black text-bold">
-      <h1 className="text-3xl text-center mb-4">Admin Dashboard</h1>
+      <h1 className="text-3xl text-center text-white mb-4">Admin Dashboard</h1>
       <div>
         <div className="grid grid-cols-3 gap-4">
           {arr.map((item,index)=>

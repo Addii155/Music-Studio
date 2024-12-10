@@ -1,37 +1,42 @@
-import React, { useState, useRef } from 'react';
-import ReactPlayer from 'react-player/lazy';
-import playicon from '../assets/play.png';
-import pauseicon from '../assets/pause.png';
+import React, { useState, useRef, useEffect } from "react";
+import ReactPlayer from "react-player/lazy";
+import playicon from "../assets/play.png";
+import pauseicon from "../assets/pause.png";
 import volumeimg from "../assets/volume.png";
 import loaderIcon from "../assets/35.gif"; // Add your loader here
 import { FaVolumeHigh } from "react-icons/fa6";
-import { FaVolumeMute } from "react-icons/fa"
+import { FaVolumeMute } from "react-icons/fa";
 import { FaVolumeDown } from "react-icons/fa";
-import { useSelector , useDispatch } from 'react-redux';
-import  { setPause } from '../redux/reducer/musicSlice'
+import { useSelector, useDispatch } from "react-redux";
+import { setPause, setSongProgress } from "../redux/reducer/musicSlice";
 const CustomPlayer = ({ song }) => {
-  const {isPlaying , currProgress} = useSelector(state=>state.music);
+  const { isPlaying } = useSelector((state) => state.music);
+  const currmusicProgress = JSON.parse(localStorage.getItem("currProgress"));
   const dispatch = useDispatch();
-  const [playing, setPlaying] = useState(isPlaying);
   const [volume, setVolume] = useState(1); // Volume ranges from 0 to 1
-  const [progress, setProgress] = useState(currProgress); // Progress in seconds
-  const [songduration, setSongDuration] = useState(0); // Store the song's duration
+  const [progress, setProgress] = useState(currmusicProgress); // Progress in seconds
+  const [songduration, setSongDuration] = useState(currmusicProgress); // Store the song's duration
   const playerRef = useRef(null); // Reference to the ReactPlayer instance
   const [buffer, setBuffer] = useState(false); // Buffering state
-
-  // Handle progress updates from ReactPlayer
-  const handleProgress = (progressData) => {
-    if (!seekingRef.current) {
-      setProgress(progressData.played * songduration); // Update progress in seconds
-    }
+  const handleProgress = (state) => {
+    setProgress(state.playedSeconds);
+    dispatch(setSongProgress(state.playedSeconds));
   };
+  useEffect(() => {
+    const storedProgress = localStorage.getItem("currProgress");
+    if (storedProgress) {
+      setProgress(() => JSON.parse(storedProgress));
+      playerRef.current.seekTo(JSON.parse(storedProgress));
+    } else {
+      setProgress(0); // Default to 0 if nothing is stored
+    }
+  }, []);
 
-
-  // Handle seeking (when user interacts with the progress slider)
   const handleSeek = (value) => {
     setProgress(value);
-    playerRef.current.seekTo(value / songduration); // Seek to the desired position in seconds
-    dispatch(setPause()); // Start playing
+    dispatch(setSongProgress(value));
+    playerRef.current.seekTo(value / songduration);
+    dispatch(setPause());
   };
 
   // Handle when the duration of the song is available
@@ -48,7 +53,7 @@ const CustomPlayer = ({ song }) => {
   const seekingRef = useRef(false); // To track if the user is seeking
 
   return (
-    <div className="rounded-lg shadow-md  bg-gray-900  p-4 relative">
+    <div className="rounded-lg shadow-md bg-gray-900  relative">
       {song?.audio?.url && (
         <ReactPlayer
           ref={playerRef} // Attach the player reference
@@ -59,7 +64,7 @@ const CustomPlayer = ({ song }) => {
           controls={false} // Hide native controls
           width="100%"
           height="50px"
-          style={{ display: 'none' }} // Hide the player interface
+          style={{ display: "none" }} // Hide the player interface
           onProgress={handleProgress} // Track progress updates
           onDuration={handleDuration} // Extract the song's duration
           onBuffer={() => setBuffer(true)} // Show loader during buffering
@@ -68,12 +73,10 @@ const CustomPlayer = ({ song }) => {
         />
       )}
 
-     
-      {/* Custom Controls */}
-      <div className="flex items-center justify-between mt-1">
+      <div className="flex items-center justify-between">
         <button
-          onClick={() =>{
-            dispatch(setPause(!isPlaying))
+          onClick={() => {
+            dispatch(setPause(!isPlaying));
           }}
           className="text-white hover:bg-gray-700 p-2 rounded"
         >
@@ -83,17 +86,23 @@ const CustomPlayer = ({ song }) => {
             <img src={playicon} alt="play" className="w-6 h-6" />
           )}
         </button>
-
-        <div>
-        <div>
-        {
-            volume === 0 ?
-             <FaVolumeMute className="text-white w-6 h-6"/>
-            : volume > 0.5 ? <FaVolumeHigh className="text-white w-6 h-6"/>
-            : <FaVolumeDown className="text-white w-6 h-6"/>    
-         }
-        </div>
-          <label htmlFor="volume" className='mr-2'>{volume * 100}</label>
+        <div className="flex items-center justify-center gap-1">
+          <div className="w-8px h-8px">
+            {volume === 0 ? (
+              <FaVolumeMute className="text-white w-6 h-6" />
+            ) : volume > 0.5 ? (
+              <FaVolumeHigh className="text-white w-6 h-6" />
+            ) : (
+              <FaVolumeDown className="text-white w-6 h-6" />
+            )}
+          </div>
+          <label
+            htmlFor="volume"
+            className="pl-1 text-white"
+            style={{ width: "40px", textAlign: "center" }} 
+          >
+            {Math.round(volume * 100)} 
+          </label>
           <input
             id="volume"
             type="range"
@@ -102,38 +111,37 @@ const CustomPlayer = ({ song }) => {
             step={0.1}
             value={volume}
             onChange={(e) => setVolume(parseFloat(e.target.value))}
-            className="ml-2 flex-1"
+            className="ml-2 flex-1 "
           />
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <div className="mt-1">
+      <div className="mt-1 ">
         <div className="w-full flex justify-between ">
           <span>{formatCurrrenttime(progress)}</span>
           <span>{formatCurrrenttime(songduration)}</span>
         </div>
-        <div>
-        { buffer && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img src={loaderIcon} alt="Loading..."   className="w-8 h-8 " />
-        </div>
-      )}
-        <input
-          type="range"
-          min={0}
-          max={songduration || 1} 
-          step={0.1}
-          value={progress}
-          onChange={(e) => handleSeek(parseFloat(e.target.value))} // Allow manual seeking
-          onMouseDown={() => (seekingRef.current = true)} // Disable automatic progress updates while seeking
-          onMouseUp={() => (seekingRef.current = false)} // Re-enable progress updates after seeking
-          className="w-full"
-        />
+        <div className="text-blue-700">
+          {buffer && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img src={loaderIcon} alt="Loading..." className="w-8 h-8 " />
+            </div>
+          )}
+          <input
+            type="range"
+            min={0}
+            max={songduration || 1}
+            step={0.1}
+            value={progress}
+            onChange={(e) => handleSeek(parseFloat(e.target.value))} 
+            onMouseDown={() => (seekingRef.current = true)}
+            onMouseUp={() => (seekingRef.current = false)} 
+            className="w-full cursor-pointer "
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export  {CustomPlayer};
+export { CustomPlayer };

@@ -20,19 +20,21 @@ cloudinary.config({
 
 const app=express();
 
-
-
 app.set("view engine", "ejs");
 app.set("views",path.resolve("./backend/views"))
 app.use(express.static("public"));
-app.use(express.json());
+app.use(express.json(
+    {
+        limit:"50mb",
+        extended:true,
+    }
+));
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser());
 app.use(cors({
     origin:["http://localhost:5173","http://127.0.0.1:5173"],
     credentials:true,
     methods:["GET","POST","PUT","DELETE"]
-
 }))
 
 
@@ -42,6 +44,7 @@ import artistRouter from './routes/artist.Router.js';
 import userSongRouter from './routes/userSong.Router.js';
 import aiRouter from './routes/ai.Router.js';
 import albumRouter from './routes/album.Router.js';
+import uploadData from './middlewares/uploadboth.js';
 
 app.use("/api/v1",authRouter);
 app.use("/api/v1",songRouter);
@@ -49,10 +52,16 @@ app.use("/api/v1",artistRouter);
 app.use("/api/v1",userSongRouter);
 app.use("/api/v1",aiRouter);
 app.use("/api/v1" ,albumRouter);
+app.post('/uploadme',uploadData.fields([
+    { name:'thumbnail',maxCount:1}, 
+    { name:'song',maxCount:1}
+]),async(req,res)=>{
+    console.log(req.files ) ;
+    return res.json({
+        message:"success"
+    })
+})
 
-// app.get('/',(req,res)=>{
-//     res.render("home")
-// })
 app.post('/profile',uploadSong.single('avatar'),async(req,res)=>{
     const file = req.file;
     
@@ -67,7 +76,6 @@ app.post('/profile',uploadSong.single('avatar'),async(req,res)=>{
 
         console.log("Upload Result: ", uploadResult);
 
-        // Assuming you want to redirect after a successful upload
         return res.redirect('/');
     } catch (error) {
         console.error("Upload Error: ", error);

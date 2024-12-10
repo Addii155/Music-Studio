@@ -44,6 +44,7 @@ const Navbar = () => {
           <h1 className="font-bold text-2xl lg:hidden">MuziK</h1>
         </div>
         {
+          user && 
           user.role === "ADMIN" && (
             <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden lg:block cursor-pointer"
             onClick={() => navigate('/admin')}

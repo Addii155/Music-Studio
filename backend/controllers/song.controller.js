@@ -5,24 +5,28 @@ import Song from "../models/song.model.js";
 import TryCatch from "../utils/TryCatch.js";
 import cloudinary from "cloudinary";
 import { parseFile } from "music-metadata";
-import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import path from "path";
-import { get } from "http";
+import fs from 'fs/promises'
 
 const songCtrl = {
     addAlbum: TryCatch(async (req, res) => {
-        const { title, description } = req.body;
+        const { title, description , artistId} = req.body;
+        const artist = await Artist.findById(artistId);
+        if(!artist){
+            return res.status(400).json({
+                message:"artist not found"
+        })
+        }
         const file = req.file;
         if (!file) {
             return res.status(400).json({
                 message: "No file uploaded",
             });
         }
-
         try {
             const cloud = await cloudinary.v2.uploader.upload(file.path, {
-                resource_type: "image", // Adjust resource type if not an image
+                resource_type: "image", 
             });
 
             if (!cloud) {
@@ -30,8 +34,7 @@ const songCtrl = {
                     message: "File upload failed",
                 });
             }
-
-
+             fs.unlink(file.path);
             const newAlbum = await Album.create({
                 title,
                 description,
@@ -39,11 +42,8 @@ const songCtrl = {
                     id: cloud.public_id,
                     url: cloud.secure_url,
                 },
-                // artist: artist._id,
+                artist:artist._id
             });
-            // artist.album.push(newAlbum._id);
-            // await artist.save();
-
             res.status(201).json({
                 message: "Album created successfully",
             });
@@ -56,92 +56,70 @@ const songCtrl = {
         }
     }),
     addSong: TryCatch(async (req, res) => {
-        const { albumId, artistId } = req.body;
-        const file = req.file;
-    
+        const { title, description, albumId, artistId } = req.body;
+        const file = req.files;
+       
         if (!file) {
             return res.status(400).json({
                 message: "No file uploaded",
             });
         }
-    
-        // Parse metadata from the audio file
-        const metadata = await parseFile(file.path);
-    
-        let thumbnailSong = null; // Initialize variable for thumbnail upload
-    
-        // Check if the song has an image in the metadata
-        if (metadata.common.picture && metadata.common.picture.length > 0) {
-            const picture = metadata.common.picture[0];
-    
-            // Define the directory for storing album art
-            const directory = "./backend/uploads/songIcon";
-            if (!fs.existsSync(directory)) {
-                fs.mkdirSync(directory);
-            }
-    
-            // Create a unique image name and save the image
-            const imageName = `album_art_${uuidv4()}.${picture.format.split('/')[1]}`;
-            const imagePath = path.join(directory, imageName);
-            fs.writeFileSync(imagePath, picture.data);
-    
-            // Upload the thumbnail to cloudinary
-            thumbnailSong = await cloudinary.v2.uploader.upload(imagePath, { resource_type: "image" });
-    
-            if (!thumbnailSong) {
-                return res.json({ msg: "Music image upload failed" });
-            }
-        }
-    
-        // Check if the album exists
-        const album = await Album.findById(albumId);
-        if (!album) {
-            return res.status(400).json({ msg: "Album does not exist" });
-        }
-    
-        // Check if the artist exists
-        const artist = await Artist.findById(artistId);
-        if (!artist) {
-            return res.status(400).json({ msg: "Artist does not exist" });
-        }
-    
-        // Upload the audio file to cloudinary
-        const cloud = await cloudinary.v2.uploader.upload(file.path, { resource_type: "video" });
-        if (!cloud) {
-            return res.status(400).json({ msg: "Audio file upload failed" });
-        }
-    
-        // Create the new song
-        const newsongData = {
-            title: file.originalname,
-            audio: {
-                id: cloud.public_id,
-                url: cloud.secure_url,
-            },
-            album: album._id,
-            artist: artist._id,
-        };
-    
-        // Only add the thumbnail field if thumbnailSong is available
-        if (thumbnailSong) {
-            newsongData.thumbnail = {
-                id: thumbnailSong.public_id,
-                url: thumbnailSong.secure_url,
-            };
-        }
-    
-        const newsong = await Song.create(newsongData);
-    
-        // Update album and artist with the new song
-        album.albumSongs.push(newsong._id);
-        artist.songs.push(newsong._id);
-    
-        await album.save();
-        await artist.save();
+    const thumbnailFile = req.files.thumbnail?.[0];
+    const songFile = req.files.song?.[0];
 
-        return res.json({
-            message: "Song added successfully",
+    // Validate album
+    const album = await Album.findById(albumId);
+    if (!album) {
+        return res.status(400).json({ msg: "Album does not exist" });
+    }
+
+    // Validate artist
+    const artist = await Artist.findById(artistId);
+    if (!artist) {
+        return res.status(400).json({ msg: "Artist does not exist" });
+    }
+
+    let thumbnailSong = null;
+    if (thumbnailFile) {
+        const thumbnailPath = thumbnailFile.path;
+        const uploadResult = await cloudinary.v2.uploader.upload(thumbnailPath, {
+            resource_type: "image",
         });
+        thumbnailSong = {
+            id: uploadResult.public_id,
+            url: uploadResult.secure_url,
+        };
+        fs.unlink(thumbnailPath); 
+    }
+
+    // Upload song to Cloudinary
+    const songPath = songFile.path;
+    const audioUploadResult = await cloudinary.v2.uploader.upload(songPath, {
+        resource_type: "video",
+    });
+    fs.unlink(songPath); 
+
+    const newSong = await Song.create({
+        title,
+        audio: {
+            id: audioUploadResult.public_id,
+            url: audioUploadResult.secure_url,
+        },
+        description: description || "",
+        thumbnail: thumbnailSong,
+        album: album._id,
+        artist: artist._id,
+    });
+    album.albumSongs.push(newSong._id);
+    artist.songs.push(newSong._id);
+
+    await album.save();
+    await artist.save();
+
+    return res.json({
+        message: "Song added successfully",
+        song: newSong,
+    });
     }),
     getAllSong: TryCatch(async (req, res) => {
         const songs = await Song.find();

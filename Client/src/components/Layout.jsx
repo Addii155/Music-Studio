@@ -1,7 +1,6 @@
 import React from "react";
 import Sidebar from "./SideBar";
 import Navbar from "./Navbar";
-import Player from "./Player";
 import Album from "./Album";
 import { useLocation } from 'react-router-dom';
 // import state from "../store";

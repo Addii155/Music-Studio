@@ -5,7 +5,6 @@ import Sidebar from "../components/SideBar";
 import Navbar from "../components/Navbar";
 // import Album from "./Album"; // Component to display songs
 import MusicCard from "../components/MusicCard";
-import Player from "../components/Player";
 import { set } from "mongoose";
 // import Player from "./Player";
 

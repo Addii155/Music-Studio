@@ -14,7 +14,7 @@ const MusicCard = ({ song }) => {
     const { user } = useSelector((state) => state.auth);
     const [liked, setLiked] = useState(false);
     const onClickHandler = () => {
-        dispatch(setSong({ song, songId: song._id, isPlaying: true }));
+        dispatch(setSong({ song, songId: song._id, isPlaying: true, currProgress: 0 }));
     }
     
     useEffect(()=>{

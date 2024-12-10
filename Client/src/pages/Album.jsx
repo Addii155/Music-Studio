@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 // import Album from "./Album"; // Component to display songs
 import MusicCard from "../components/MusicCard";
-import Player from "../components/Player";
 // import Player from "./Player";
 
 const AlbumPage = () => {

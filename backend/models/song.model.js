@@ -30,8 +30,6 @@ const songSchema = new Schema({
     timestamps: true,  
 });
 
-// Create the model from the schema
 const Song = mongoose.model("Song", songSchema);
 
-// Export the model
 export default Song;
