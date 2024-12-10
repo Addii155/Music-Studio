@@ -21,7 +21,6 @@ const verifyJwt = async (req, res, next) => {
       });
     }
 
-    // Fetch user associated with the token
     const user = await User.findById(decoded.id);
 
     if (!user) {
