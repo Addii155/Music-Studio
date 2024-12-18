@@ -7,14 +7,18 @@ import store from './redux/store.js';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from "@/components/theme-provider" 
 import { Play } from 'lucide-react';
-import Player from "./components/Player.jsx";
+import  dotenv from 'dotenv'
+
+ 
+import { GoogleOAuthProvider } from '@react-oauth/google';
 ReactDOM.createRoot(document.getElementById('root')).render(
+    <GoogleOAuthProvider clientId='238683043090-k2okjt6vhfqphd7i62d34fgn6342jb0r.apps.googleusercontent.com'>
     <Provider store={store}>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <App />
-    <Player/>
     <Toaster/>
     </ThemeProvider>
     </Provider>
+    </GoogleOAuthProvider>
    ,
 )

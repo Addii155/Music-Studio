@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "../redux/action/auth";
-import { toast } from "react-hot-toast"
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-hot-toast";
+import "react-toastify/dist/ReactToastify.css";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,25 +14,18 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      alert("Please enter email and password");
-      return;
-    }
-    // Dispatch the login action
-    dispatch(LoginUser(email, password));
+  const submitHandler = (token) => {
+    dispatch(LoginUser(token.credential));
   };
 
   // Navigate after login is successful
   useEffect(() => {
     if (user) {
-      toast.success("Login successful!"); 
-      navigate('/');
+      toast.success("Login successful!");
+      navigate("/");
     } else if (error) {
       console.log("Something went wrong:", error);
       toast.error(error);
-      
     }
   }, [user, error, navigate]);
 
@@ -41,10 +35,11 @@ const Login = () => {
         <h2 className="text-3xl font-semibold text-center mb-8">
           Login to Spotify
         </h2>
-
         <form className="mt-8" onSubmit={submitHandler}>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Email or username</label>
+            <label className="block text-sm font-medium mb-1">
+              Email or username
+            </label>
             <input
               type="email"
               name="email"
@@ -75,7 +70,6 @@ const Login = () => {
             Login
           </button>
         </form>
-
         <div className="text-center mt-6">
           <Link
             to="/register"
@@ -84,6 +78,14 @@ const Login = () => {
             don't have an account?
           </Link>
         </div>
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            submitHandler(credentialResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
       </div>
     </div>
   );

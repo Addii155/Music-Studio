@@ -4,6 +4,7 @@ import authCtrl  from "../controllers/auth_controller.js"
 import verifyJwt from "../middlewares/auth.middlesware.js";
 
 authRouter.post("/signup", authCtrl.singUp);
+authRouter.post("/google/signup",authCtrl.googleSingUp);
 authRouter.post("/login",authCtrl.signIn);
 authRouter.post("/verifyemail",authCtrl.verifyEmail);
 authRouter.get("/signout",verifyJwt,authCtrl.signOut);

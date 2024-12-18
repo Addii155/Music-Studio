@@ -3,7 +3,7 @@ import ReactPlayer from "react-player/lazy";
 import playicon from "../assets/play.png";
 import pauseicon from "../assets/pause.png";
 import volumeimg from "../assets/volume.png";
-import loaderIcon from "../assets/35.gif"; // Add your loader here
+import loaderIcon from "../assets/35.gif"; 
 import { FaVolumeHigh } from "react-icons/fa6";
 import { FaVolumeMute } from "react-icons/fa";
 import { FaVolumeDown } from "react-icons/fa";
@@ -13,35 +13,31 @@ const CustomPlayer = ({ song }) => {
   const { isPlaying } = useSelector((state) => state.music);
   const currmusicProgress = JSON.parse(localStorage.getItem("currProgress"));
   const dispatch = useDispatch();
-  const [volume, setVolume] = useState(1); // Volume ranges from 0 to 1
-  const [progress, setProgress] = useState(currmusicProgress); // Progress in seconds
-  const [songduration, setSongDuration] = useState(currmusicProgress); // Store the song's duration
-  const playerRef = useRef(null); // Reference to the ReactPlayer instance
-  const [buffer, setBuffer] = useState(false); // Buffering state
+  const [volume, setVolume] = useState(1); 
+  const [progress, setProgress] = useState(currmusicProgress); 
+  const [songduration, setSongDuration] = useState(0); 
+  const playerRef = useRef(null); 
+  const [buffer, setBuffer] = useState(false); 
   const handleProgress = (state) => {
     setProgress(state.playedSeconds);
     dispatch(setSongProgress(state.playedSeconds));
   };
   useEffect(() => {
-    const storedProgress = localStorage.getItem("currProgress");
-    if (storedProgress) {
-      setProgress(() => JSON.parse(storedProgress));
-      playerRef.current.seekTo(JSON.parse(storedProgress));
-    } else {
-      setProgress(0); // Default to 0 if nothing is stored
-    }
+    const storedProgress =(localStorage.getItem("currProgress"));
+    console.log(storedProgress, "storedProgress");
+    // if (storedProgress) {
+    //   setProgress(() => JSON.parse(storedProgress));
+    // } 
   }, []);
-
   const handleSeek = (value) => {
     setProgress(value);
     dispatch(setSongProgress(value));
     playerRef.current.seekTo(value / songduration);
-    dispatch(setPause());
   };
 
-  // Handle when the duration of the song is available
   const handleDuration = (duration) => {
-    setSongDuration(duration); // Set the song duration
+    console.log(duration , "duration");
+    setSongDuration(duration); 
   };
 
   const formatCurrrenttime = (time) => {
@@ -67,15 +63,25 @@ const CustomPlayer = ({ song }) => {
           style={{ display: "none" }} // Hide the player interface
           onProgress={handleProgress} // Track progress updates
           onDuration={handleDuration} // Extract the song's duration
-          onBuffer={() => setBuffer(true)} // Show loader during buffering
-          onBufferEnd={() => setBuffer(false)} // Hide loader when buffering ends
-          onEnded={() => dispatch(setPause())}
+          onBuffer={() => {
+            console.log("Buffering...");
+            setBuffer(true)
+            dispatch(setPause());
+          }} // Show loader during buffering
+          onBufferEnd={() => {
+            setBuffer(false)
+            dispatch(setPause());
+          }} // Hide loader when buffering ends
+          onEnded={() => {
+           handleSeek(0);
+          }}
         />
       )}
 
       <div className="flex items-center justify-between">
         <button
           onClick={() => {
+            console.log(isPlaying)
             dispatch(setPause(!isPlaying));
           }}
           className="text-white hover:bg-gray-700 p-2 rounded"

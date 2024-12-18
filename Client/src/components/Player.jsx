@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { useSelector } from 'react-redux';
 import {CustomPlayer} from './CustomPlayer.jsx';
+// import { useParams} from 'react-router-dom'
 
 const Player = () => {
+  // const 
+  // console.log(location)
   const {currsong} = useSelector(state=>state.music);
   const [song, setsong] = useState(()=>{
     const song = JSON.parse(localStorage.getItem("song"));
@@ -20,9 +23,10 @@ const Player = () => {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 w-full px-2 pb-1
+      className={`fixed bottom-0 left-0 right-0 w-full px-2 pb-1
       bg-white dark:bg-black dark:border-2 dark:border-gray-700 
-      shadow-lg flex items-center z-50"
+      shadow-lg flex items-center z-50   
+      `}
     >
       <div className="w-full mx-auto flex items-center">
         <div className="w-32 h-32 ">

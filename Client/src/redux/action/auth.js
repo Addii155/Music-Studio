@@ -7,25 +7,16 @@ import { loginRequest
   logoutSuccess,
   
 } from "../reducer/authSlices";
-export const LoginUser = (email, password) => async (dispatch) => {
+export const LoginUser = (googleToken) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     const { data } = await axios.post(
-      "http://localhost:8000/api/v1/login",
-      { email, password },
+      "http://localhost:8000/api/v1/google/signup",
+      { googleToken },
      {
         withCredentials: true,
      }
     );
-    // console.log(data)
-    
     dispatch(loginSuccess(data));
 
   } catch (error) {
