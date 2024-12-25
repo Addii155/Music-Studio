@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const FavouriteSong = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const {user, token }= useSelector((state) => state.auth.user);
   const { id } = useParams();
 
   const [songs, setSongs] = useState([]);
@@ -24,11 +24,13 @@ const FavouriteSong = () => {
         const response = await axios.get(
           `http://localhost:8000/api/v1/favorite/mysong`,
           {
-            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         setSongs(response.data.favoriteSongs);
-        // setSongs(songsData);
+        console.log(response.data.favoriteSongs);
       } catch (error) {
         console.error("Error fetching artist data:", error);
       }

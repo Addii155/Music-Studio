@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "../redux/action/auth";
@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   // Navigate after login is successful
-  useEffect(() => {
+  useCallback(() => {
     if (user) {
       toast.success("Login successful!");
       navigate("/");

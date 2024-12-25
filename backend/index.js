@@ -45,6 +45,7 @@ import userSongRouter from './routes/userSong.Router.js';
 import aiRouter from './routes/ai.Router.js';
 import albumRouter from './routes/album.Router.js';
 import uploadData from './middlewares/uploadboth.js';
+import User from './models/user.model.js';
 
 app.use("/api/v1",authRouter);
 app.use("/api/v1",songRouter);
@@ -52,44 +53,24 @@ app.use("/api/v1",artistRouter);
 app.use("/api/v1",userSongRouter);
 app.use("/api/v1",aiRouter);
 app.use("/api/v1" ,albumRouter);
-app.post('/uploadme',uploadData.fields([
-    { name:'thumbnail',maxCount:1}, 
-    { name:'song',maxCount:1}
-]),async(req,res)=>{
-    console.log(req.files ) ;
-    return res.json({
-        message:"success"
+
+app.get("/",async(req,res)=>{
+    const data= await User.find()
+        console.log(data)
+       return res.json(data)
     })
-})
-
-app.post('/profile',uploadSong.single('avatar'),async(req,res)=>{
-    const file = req.file;
-    
-    if (!file) {
-        return res.status(400).json({ message: "No file uploaded" });
-    }
-
-    try {
-        const uploadResult = await cloudinary.uploader.upload(file.path, {
-            resource_type: "video",
-        });
-
-        console.log("Upload Result: ", uploadResult);
-
-        return res.redirect('/');
-    } catch (error) {
-        console.error("Upload Error: ", error);
-        return res.status(500).json({ message: "Upload failed", error });
-    }
-    return res.redirect('/')
-})
 
 
 const PORT=process.env.PORT || 4000
-mongoose.connect(process.env.MONGODB_URL).then(()=>{
+async function startServer(){
+    await mongoose.connect(process.env.MONGODB_URL).then(()=>{
     console.log("Database conneted successfull")
-    app.listen(PORT,(req,res)=>{
+    app.listen(PORT,()=>{
         console.log(`Server Running at Port ${PORT}`)
     })
+}).catch((err)=>{
+    console.log(err)    
 }
 )
+}
+startServer();

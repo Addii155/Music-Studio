@@ -18,7 +18,7 @@ const AlbumPage = () => {
         const artistResponse = await axios.get(
           `http://localhost:8000/api/v1/getalbum/${id}`
         );
-        console.log(artistResponse);
+        // console.log(artistResponse);
         const artistData = await artistResponse.data;
         console.log(artistData);
         setSongs(artistData.albumSongs);
