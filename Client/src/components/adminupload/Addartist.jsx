@@ -32,7 +32,7 @@ const Addartist = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/addartist",
+        "https://music-studio-rjkw.onrender.com/api/v1/addartist",
         formData,
         {
           withCredentials: true,

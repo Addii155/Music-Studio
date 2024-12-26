@@ -14,7 +14,7 @@ export const likeHandler = create((set) => ({
 export const onlikeClick= async({id})=>{
   try {
     
-    const response=await axios.get(`http://localhost:8000/api/v1/favorite/add/${id}`,
+    const response=await axios.get(`https://music-studio-rjkw.onrender.com/api/v1/favorite/add/${id}`,
       {
         withCredentials: true,
         headers:{

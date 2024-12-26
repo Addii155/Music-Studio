@@ -19,7 +19,7 @@ const MyPlaylist = () => {
 
       try {
         const response = await axios.get(
-          'http://localhost:8000/api/v1/getplaylists', {
+          'https://music-studio-rjkw.onrender.com/api/v1/getplaylists', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

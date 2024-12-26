@@ -14,7 +14,7 @@ const ArtistPage = () => {
       setLoading(true);
       try {
         const artistResponse = await axios(
-          `http://localhost:8000/api/v1/getartist/allsong/${id}`
+          `https://music-studio-rjkw.onrender.com/api/v1/getartist/allsong/${id}`
         );
         const artistData = artistResponse.data;
         setSongs(artistData.songs);

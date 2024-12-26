@@ -16,7 +16,7 @@ const AlbumPage = () => {
       try {
         // Fetch artist details (replace with your API endpoint)
         const artistResponse = await axios.get(
-          `http://localhost:8000/api/v1/getalbum/${id}`
+          `https://music-studio-rjkw.onrender.com/api/v1/getalbum/${id}`
         );
         // console.log(artistResponse);
         const artistData = await artistResponse.data;

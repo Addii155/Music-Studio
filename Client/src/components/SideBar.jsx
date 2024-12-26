@@ -51,7 +51,7 @@ const Sidebar = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8000/api/v1/create/playlist",
+        "https://music-studio-rjkw.onrender.com/api/v1/create/playlist",
         { name: newPlaylist },
         {
           headers: {

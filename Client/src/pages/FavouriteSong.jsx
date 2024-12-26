@@ -22,7 +22,7 @@ const FavouriteSong = () => {
       setLoading(true); // Start loading
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/favorite/mysong`,
+          `https://music-studio-rjkw.onrender.com/api/v1/favorite/mysong`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

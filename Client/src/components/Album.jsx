@@ -12,7 +12,7 @@ const Album = () => {
    useEffect(() => {
 
       const fetchData = async () => {
-         const response = await axios.get("http://localhost:8000/api/v1/allsongs");
+         const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allsongs");
          setsong(response.data);
 
       };
@@ -21,7 +21,7 @@ const Album = () => {
    useEffect(() => {
 
       const fetchData = async () => {
-         const response = await axios.get("http://localhost:8000/api/v1/allalbum");
+         const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allalbum");
          setalbums(response.data);
 
       };
@@ -31,7 +31,7 @@ const Album = () => {
    useEffect(() => {
 
       const fetchData = async () => {
-         const response = await axios.get("http://localhost:8000/api/v1/allartist");
+         const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allartist");
          setartist(response.data);
          //   console.log(response.data); 
       };

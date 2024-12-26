@@ -11,7 +11,7 @@ export const LoginUser = (googleToken) => async (dispatch) => {
   try {
     dispatch(loginRequest());
     const { data } = await axios.post(
-      "http://localhost:8000/api/v1/google/signup",
+      "https://music-studio-rjkw.onrender.com/api/v1/google/signup",
       { googleToken },
      {
         withCredentials: true,
@@ -30,7 +30,7 @@ export const LogoutUser = () => async (dispatch) => {
     // Retrieve the token from localStorage
     const token = localStorage.getItem("token");
 
-    const  data  = await axios.get("http://localhost:8000/api/v1/signout", {
+    const  data  = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/signout", {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
