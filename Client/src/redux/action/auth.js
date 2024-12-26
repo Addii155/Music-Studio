@@ -38,7 +38,6 @@ export const LogoutUser = () => async (dispatch) => {
       
     });
 
-    console.log("Logout response:", data);
     dispatch(logoutSuccess());
   } catch (error) {
     console.error("Logout error:", error);

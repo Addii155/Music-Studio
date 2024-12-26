@@ -17,9 +17,7 @@ const Login = () => {
   const submitHandler = (token) => {
     dispatch(LoginUser(token.credential));
   };
-
-  // Navigate after login is successful
-  useCallback(() => {
+  useEffect(() => {
     if (user) {
       toast.success("Login successful!");
       navigate("/");
@@ -27,13 +25,13 @@ const Login = () => {
       console.log("Something went wrong:", error);
       toast.error(error);
     }
-  }, [user, error, navigate]);
+  }, [user, error]);
 
   return (
     <div className="flex items-center justify-center h-screen max-h-screen">
       <div className="bg-black text-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-semibold text-center mb-8">
-          Login to Spotify
+          Login to MuziK
         </h2>
         <form className="mt-8" onSubmit={submitHandler}>
           <div className="mb-4">

@@ -24,7 +24,7 @@ const CustomPlayer = ({ song }) => {
   };
   useEffect(() => {
     const storedProgress =(localStorage.getItem("currProgress"));
-    console.log(storedProgress, "storedProgress");
+    // console.log(storedProgress, "storedProgress");
     // if (storedProgress) {
     //   setProgress(() => JSON.parse(storedProgress));
     // } 
@@ -36,7 +36,6 @@ const CustomPlayer = ({ song }) => {
   };
 
   const handleDuration = (duration) => {
-    console.log(duration , "duration");
     setSongDuration(duration); 
   };
 
@@ -64,7 +63,6 @@ const CustomPlayer = ({ song }) => {
           onProgress={handleProgress} // Track progress updates
           onDuration={handleDuration} // Extract the song's duration
           onBuffer={() => {
-            console.log("Buffering...");
             setBuffer(true)
             dispatch(setPause());
           }} // Show loader during buffering
@@ -81,7 +79,7 @@ const CustomPlayer = ({ song }) => {
       <div className="flex items-center justify-between">
         <button
           onClick={() => {
-            console.log(isPlaying)
+            // console.log(isPlaying)
             dispatch(setPause(!isPlaying));
           }}
           className="text-white hover:bg-gray-700 p-2 rounded"

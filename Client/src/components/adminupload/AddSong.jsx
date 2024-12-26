@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast';
 const AddSong = () => {
   const [allartists, setallartists] = useState(null);
   const [allalbums, setallalbums] = useState(null);
-  const [loading,setloading] = useState(false);
+  const [loading, setloading] = useState(false);
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       title: '',
       description: '',
@@ -17,6 +17,7 @@ const AddSong = () => {
       album: '',
       artist: '',
     },
+    mode: 'onBlur',
   });
 
   useEffect(() => {
@@ -39,12 +40,12 @@ const AddSong = () => {
     fetchArtists();
     fetchAlbums();
   }, []);
-  const onSubmit = async (data) => {
 
+  const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', data.description);
-    formData.append('thumbnail', data.thumbnail[0]); 
+    formData.append('thumbnail', data.thumbnail[0]);
     formData.append('song', data.audio[0]);
     formData.append('albumId', data.album);
     formData.append('artistId', data.artist);
@@ -59,8 +60,13 @@ const AddSong = () => {
         },
       });
       setloading(false);
-      toast.success('Song added successfully');
+      if (response.data.success) {
+        toast.success('Song added successfully');
+      } else {
+        toast.error('Failed to add song');
+      }
     } catch (error) {
+      setloading(false);
       toast.error('Failed to add song');
       console.error(error);
     }
@@ -74,16 +80,17 @@ const AddSong = () => {
           <label className="block text-gray-700 font-semibold mb-2">Title</label>
           <input
             type="text"
-            {...register('title')}
+            {...register('title', { required: 'Title is required' })}
             className="w-full border text-black border-gray-300 p-2 rounded-lg"
             placeholder="Song Title"
           />
+          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         </div>
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Description</label>
           <textarea
             {...register('description')}
-            className="w-full border  text-black border-gray-300 p-2 rounded-lg"
+            className="w-full border text-black border-gray-300 p-2 rounded-lg"
             placeholder="Song Description"
           ></textarea>
         </div>
@@ -91,9 +98,9 @@ const AddSong = () => {
           <label className="block text-gray-700 font-semibold mb-2">Thumbnail</label>
           <input
             type="file"
-            accept='image/*'
+            accept="image/*"
             {...register('thumbnail')}
-            className="w-full border  text-black border-gray-300 p-2 rounded-lg"
+            className="w-full border text-black border-gray-300 p-2 rounded-lg"
           />
         </div>
         <div>
@@ -102,50 +109,51 @@ const AddSong = () => {
             type="file"
             {...register('audio')}
             accept="audio/*"
-            className="w-full border  text-black border-gray-300 p-2 rounded-lg"
+            className="w-full border text-black border-gray-300 p-2 rounded-lg"
           />
         </div>
-        <div className='text-black'>
+        <div>
           <label className="block text-gray-700 font-semibold mb-2">Album</label>
           <select
-            {...register('album')}
-            className="w-full border  text-black border-gray-300 p-2 rounded-lg"
+            {...register('album', { required: 'Album is required' })}
+            className="w-full border text-black border-gray-300 p-2 rounded-lg"
           >
-            <option value="album" className='text-black'>Select an album</option>
-            {allalbums &&
+            <option value="">Select an album</option>
+            {allalbums ? (
               allalbums.map((album) => (
-                <option key={album._id} value={album._id} className='text-black'>
+                <option key={album._id} value={album._id}>
                   {album.title}
                 </option>
-              ))}          
+              ))
+            ) : (
+              <option value="">Loading albums...</option>
+            )}
           </select>
         </div>
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Artist</label>
           <select
-            {...register('artist')}
-            className="w-full border text-black  border-gray-300 p-2 rounded-lg"
+            {...register('artist', { required: 'Artist is required' })}
+            className="w-full border text-black border-gray-300 p-2 rounded-lg"
           >
-            <option value="artist" className='text-black'>Select an artist</option>
-            {allartists &&
+            <option value="">Select an artist</option>
+            {allartists ? (
               allartists.map((artist) => (
-                <option key={artist._id} value={artist._id} className='text-black'>
+                <option key={artist._id} value={artist._id}>
                   {artist.name}
                 </option>
-              ))}
+              ))
+            ) : (
+              <option value="">Loading artists...</option>
+            )}
           </select>
         </div>
         <button
           type="submit"
-          className={`w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition
-            ${loading ? disabled : ''}
-            `}
+          className={`w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition`}
+          disabled={loading}
         >
-         {
-          loading ? (
-           "loading..."
-          ): "Add Song"
-         }
+          {loading ? 'Loading...' : 'Add Song'}
         </button>
       </form>
     </div>

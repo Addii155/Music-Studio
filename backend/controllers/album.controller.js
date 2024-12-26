@@ -4,8 +4,6 @@ const albumCtrl = {
     getAlbums: async (req, res) => {
         try {
             const albums = await Album.find()
-            // .populate("albumSongs");
-            // console.log(albums);
             res.json(albums);
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -15,7 +13,6 @@ const albumCtrl = {
         try {
             const album = await Album.findById(req.params.id)
             .populate({
-
                 path: "albumSongs",
                 populate: { path: "artist" }, // Nested populate for artist inside albumSongs
             },

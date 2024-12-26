@@ -123,8 +123,43 @@ const songCtrl = {
     }),
     getAllSong: TryCatch(async (req, res) => {
         const songs = await Song.find();
-        // console.log(songs);
         res.json(songs);
+    }),
+    searchSong: TryCatch(async (req, res) => {
+        const { title } = req.params; 
+        
+        const songResults = await Song.find({
+            title: { 
+                $regex: title,  
+                $options: 'i',  
+            }
+        })
+        
+        const albumResults = await Album.find({
+            name: { 
+                $regex: title, 
+                $options: 'i', 
+            }
+        })
+        // .populate('albumSongs');  
+        
+        const artistResults = await Artist.find({
+            name: { 
+                $regex: title, 
+                $options: 'i',
+            }
+        })
+        // .populate('songs');  
+
+        // Aggregate all results (songs, albums, artists)
+        const combinedResults = {
+            songs: songResults,
+            albums: albumResults,
+            artists: artistResults
+        };
+
+        // Send the results as JSON
+        res.status(200).json(combinedResults);
     }),
 }
 export default songCtrl;

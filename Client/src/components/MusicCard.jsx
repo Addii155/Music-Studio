@@ -7,12 +7,12 @@ import { onlikeClick } from '../store/song';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSong } from '../redux/reducer/musicSlice'
-const MusicCard = ({ song }) => {
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
-    const [liked, setLiked] = useState(false);
+import { Music, Play } from 'lucide-react';
+    const MusicCard = ({ song ,isliked = false}) => {
+        const navigate = useNavigate();
+        const dispatch = useDispatch();
+        const { user } = useSelector((state) => state.auth);
+        const [liked, setLiked] = useState(false);
     const onClickHandler = () => {
         dispatch(setSong({ song, songId: song._id, isPlaying: true, currProgress: 0 }));
     }
@@ -24,7 +24,6 @@ const MusicCard = ({ song }) => {
         }
         else setLiked(false)
     },[user,song])
-
     const onLikeClick = () => {
         
         if (!user) {
@@ -49,7 +48,7 @@ const MusicCard = ({ song }) => {
                     />
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity">
-                    <FaPlay className="text-white text-4xl"
+                    <FaPlay className="text-white text-4xl cursor-pointer"
                         onClick={onClickHandler}
                     />
                 </div>
@@ -60,7 +59,7 @@ const MusicCard = ({ song }) => {
                     <img
                         src={like_heart}
                         alt="like"
-                        className={`w-6 h-6 ${liked ? 'block' : 'hidden'} cursor-pointer`} // Show when liked is true
+                        className={`w-6 h-6 ${isliked || liked ? 'block' : 'hidden'} cursor-pointer`} // Show when liked is true
                      onClick={onLikeClick}
                     />
 
@@ -68,11 +67,11 @@ const MusicCard = ({ song }) => {
                     <img
                         src={like_icon}
                         alt="like"
-                        className={`w-6 h-6 ${!liked ? 'block' : 'hidden'} cursor-pointer`} // Show when liked is false
+                        className={`w-6 h-6 ${!isliked && !liked ? 'block' : 'hidden'} cursor-pointer`} // Show when liked is false
                         onClick={() => {
                             onLikeClick();
                             setLiked(true);
-                        }} // When clicked, change state to true
+                        }} 
                     />
                 </div>
                 <div className=" text-md text-white  ">

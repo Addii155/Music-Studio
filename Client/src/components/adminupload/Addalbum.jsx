@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 const AddAlbum = () => {
   const [allArtists, setAllArtists] = useState([]);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       title: "",
       description: "",
@@ -35,17 +35,19 @@ const AddAlbum = () => {
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("releaseDate", data.releaseDate);
-    formData.append("artist", data.artist);
+    formData.append("artistId", data.artist);
     formData.append("genre", data.genre);
-    formData.append("thumbnail", data.thumbnail[0]);
+    formData.append("avatar", data.thumbnail[0]);
 
     try {
-      await axios.post("http://localhost:8000/api/v1/albums", formData, {
+      await axios.post("http://localhost:8000/api/v1/album", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       toast.success("Album added successfully");
+      reset(); 
     } catch (error) {
       toast.error("Failed to add album");
       console.error(error);
@@ -60,10 +62,11 @@ const AddAlbum = () => {
           <label className="block text-gray-700 font-semibold mb-2">Album Title</label>
           <input
             type="text"
-            {...register("title")}
+            {...register("title", { required: "Album title is required" })}
             className="w-full border border-gray-300 p-2 rounded-lg"
             placeholder="Album Title"
           />
+          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         </div>
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Description</label>
@@ -77,14 +80,15 @@ const AddAlbum = () => {
           <label className="block text-gray-700 font-semibold mb-2">Release Date</label>
           <input
             type="date"
-            {...register("releaseDate")}
+            {...register("releaseDate", { required: "Release date is required" })}
             className="w-full border border-gray-300 p-2 rounded-lg"
           />
+          {errors.releaseDate && <p className="text-red-500">{errors.releaseDate.message}</p>}
         </div>
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Artist</label>
           <select
-            {...register("artist")}
+            {...register("artist", { required: "Artist is required" })}
             className="w-full border border-gray-300 p-2 rounded-lg"
           >
             <option value="">Select an artist</option>
@@ -94,6 +98,7 @@ const AddAlbum = () => {
               </option>
             ))}
           </select>
+          {errors.artist && <p className="text-red-500">{errors.artist.message}</p>}
         </div>
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Genre</label>
@@ -115,9 +120,11 @@ const AddAlbum = () => {
           <label className="block text-gray-700 font-semibold mb-2">Thumbnail</label>
           <input
             type="file"
-            {...register("thumbnail")}
+            accept="image/*"
+            {...register("thumbnail", { required: "Thumbnail is required" })}
             className="w-full border border-gray-300 p-2 rounded-lg"
           />
+          {errors.thumbnail && <p className="text-red-500">{errors.thumbnail.message}</p>}
         </div>
         <button
           type="submit"

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const FavouriteSong = () => {
   const navigate = useNavigate();
-  const {user, token }= useSelector((state) => state.auth.user);
+  const {user, token}= useSelector((state) => state.auth);
   const { id } = useParams();
 
   const [songs, setSongs] = useState([]);
@@ -51,7 +51,7 @@ const FavouriteSong = () => {
         {songs && songs.length > 0 ? (
           <div className="grid mx-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 lg:gap-2 px-1 md:gap-4 gap-6 mt-4">
             {songs.length > 0 &&
-              songs.map((song) => <MusicCard key={song._id} song={song} />)}
+              songs.map((song) => <MusicCard key={song._id} song={song} isliked={true} />)}
           </div>
         ) : (
           <div>

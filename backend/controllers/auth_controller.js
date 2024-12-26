@@ -263,7 +263,7 @@ const authCtrl = {
         await Otp.findOneAndUpdate({
           otp,
           createdAt: Date.now(),
-        });
+        }); 
       } else {
         await Otp.create({
           email,

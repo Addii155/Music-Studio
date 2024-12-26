@@ -11,4 +11,5 @@ songRouter.post('/newsong',uploadData.fields([
 ]),songCtrl.addSong);
 songRouter.post("/album",verifyJwt,uploadThumbnail.single('avatar'),songCtrl.addAlbum)
 songRouter.get("/allsongs",songCtrl.getAllSong);
+songRouter.get("/song/searchquery/:title",songCtrl.searchSong);
 export default songRouter;

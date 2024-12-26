@@ -1,19 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
-// Define the playlist schema
 const playlistSchema = new Schema({
     name: {
         type: String,
         required: true,
         default:'My playlist'
     },
-    description: {
-        type: String,
-    },
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',  // Reference to the User model
-        // required: true
+        ref: 'User',  
     },
     songs: [{
         type: mongoose.Schema.ObjectId,

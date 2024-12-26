@@ -17,6 +17,9 @@ export const onlikeClick= async({id})=>{
     const response=await axios.get(`http://localhost:8000/api/v1/favorite/add/${id}`,
       {
         withCredentials: true,
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
       }
     );
 
