@@ -19,6 +19,7 @@ export default {
         'cl': '76rem',
         'chl': '100rem',
         'ch': '85rem',
+        
       },
       colors: {
         background: 'hsl(var(--background))',

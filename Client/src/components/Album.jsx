@@ -60,7 +60,7 @@ const Album = () => {
                      Top Artists
                   </h1>
 
-                  <div className='grid mx-2 chl:grid-cols-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 
+                  <div className='grid mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 
                   lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-6 mt-4'>
                      {
                         albums && albums.map((album) => (
@@ -70,11 +70,11 @@ const Album = () => {
                   </div>
                </div>
              
-               <div className='bg-[#3f3a43] m-4 rounded-xl py-2'>
+               <div className='bg-[#3f3a43]  rounded-xl py-2'>
                <h1 className='text-2xl font-bold text-center'>
                   Top hits song 2024
                </h1>
-                  <div className='grid mx-2 chl:grid-cols-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 
+                  <div className='grid lg:mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 
                   lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-6 mt-4 overflow-x-auto'>
                      {song && song.map((song) => (
                         <MusicCard key={song._id} song={song} />

@@ -47,6 +47,11 @@ const Player = () => {
             {song?.title }
 
           </p>
+          <p className="text-black dark:text-white font-bold lg:hidden ">
+            
+            {song?.title.split(" ").slice(0,2).join(" ")}...
+
+          </p>
           <X onClick={()=>setPlayerScreen(false)} className='cursor-pointer'/>
           </div>
 

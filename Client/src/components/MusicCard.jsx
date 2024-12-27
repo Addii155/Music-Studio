@@ -39,7 +39,7 @@ import { Music, Play } from 'lucide-react';
         onlikeClick({ id: song._id });
     }
     return (
-        <div className="lg:w-72 rounded-  hover:scale-105 rounded-xl my-2 overflow-hidden shadow-lg bg-[#282828]">
+        <div className="lg:w-72 sm:w-48 w-32   hover:scale-105 rounded-xl my-2   overflow-hidden shadow-lg bg-[#282828]">
             <div className="relative ">
                 <div className='w-full h-36'>
                     <img src={song?.thumbnail?.url}
@@ -74,8 +74,13 @@ import { Music, Play } from 'lucide-react';
                         }} 
                     />
                 </div>
-                <div className=" text-md text-white  ">
+                <div className=" text-md text-white hidden lg:block">
                     {song.title}
+                </div>
+                <div>
+                    <p className="text-white text-sm  lg:hidden">
+                        {song.title.split(" ").slice(0, 2).join(" ")}...
+                    </p>
                 </div>
             </div>
         </div>

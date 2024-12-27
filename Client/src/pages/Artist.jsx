@@ -40,16 +40,16 @@ const ArtistPage = () => {
           alt="Artist"
           className="w-96 h-72 rounded-lg"
         />
-        <div className="p-4">
+        <div className="lg:p-4">
           <h1 className="lg:text-8xl text-xl  font-bold sm:text-4xl md:text-6xl">
             {artist?.name}
           </h1>
           <p className="text-gray-400 font-bold ">{artist?.bio}</p>
         </div>
-        <div></div>
+        {/* <div></div> */}
       </div>
       {songs.length > 0 ? (
-        <div className="grid mx-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 lg:gap-2 px-1 md:gap-4 gap-6 mt-4">
+        <div className="grid lg:mx-2 sm:mx-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 lg:gap-2 px-1 md:gap-4 gap-2  mt-4">
           {songs.length > 0 &&
             songs.map((song) => <MusicCard key={song._id} song={song} />)}
         </div>

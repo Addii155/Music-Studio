@@ -90,8 +90,8 @@ const CustomPlayer = ({ song }) => {
             <img src={playicon} alt="play" className="w-6 h-6" />
           )}
         </button>
-        <div className="flex lg:block hidden items-center justify-center gap-1">
-          <div className="w-8px h-8px">
+        <div className="flex  items-center justify-center gap-1">
+          <div className="w-8px  h-8px">
             {volume === 0 ? (
               <FaVolumeMute className="text-white w-6 h-6" />
             ) : volume > 0.5 ? (
@@ -102,7 +102,7 @@ const CustomPlayer = ({ song }) => {
           </div>
           <label
             htmlFor="volume"
-            className="pl-1 text-white lg:w-12 w-8"
+            className="pl-1 text-white lg:block hidden lg:w-12 w-8"
             style={{  textAlign: "center" }} 
           >
             {Math.round(volume * 100)} 
