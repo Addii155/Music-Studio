@@ -8,6 +8,7 @@ import FavouriteSong from './FavouriteSong.jsx';
 import AlbumPage from './Album.jsx';
 import ResponsiveNavbar from '../components/ResponsiveNavbar.jsx';
 import MyPlaylist from './Myplaylist.jsx';
+import Footer from '../components/Footer.jsx';
 
 
 const Home = () => {
@@ -38,6 +39,7 @@ const Home = () => {
             <Route  path="/favourite" element={<FavouriteSong />} /> 
             <Route path="/album/:id" element={<AlbumPage />} />
           </Routes>
+         <Footer/>
          </div>
         </div>
       </div>   

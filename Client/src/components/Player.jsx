@@ -42,7 +42,11 @@ const Player = () => {
 
         <div className="flex-1 pl-4">
           <div className='flex items-center justify-between'>
-          <p className="text-black dark:text-white font-bold ">{song?.title }</p>
+          <p className="text-black dark:text-white font-bold lg:block hidden">
+            
+            {song?.title }
+
+          </p>
           <X onClick={()=>setPlayerScreen(false)} className='cursor-pointer'/>
           </div>
 

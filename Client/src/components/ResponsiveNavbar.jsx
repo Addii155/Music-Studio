@@ -56,7 +56,14 @@ const ResponsiveNavbar = () => {
         <GiGuitar className="w-12 h-12 block lg:hidden" />
         <h1 className="font-bold text-2xl lg:hidden">MuziK</h1>
       </div>
-
+      {
+        user && (
+          <div className="flex items-center gap-4">
+          <img src={user?.name.split(" ")[0]} className="w-8 h-8 rounded-full" alt="avatar" />
+          <p className="hidden lg:block">{user?.name}</p>
+        </div>
+        )
+      }
       <div className="lg:hidden flex items-center gap-4">
         <FaBars
           onClick={handleMenuToggle}
