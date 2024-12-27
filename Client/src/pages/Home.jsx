@@ -27,7 +27,7 @@ const Home = () => {
       <div className="h-[100%] flex ">
        
         <Sidebar />
-        <div className="w-[100%]  px-6 pt-4 rounded  text-white overflow-auto lg:w-[100%] lg:ml-0">
+        <div className="w-[100%] px-1 lg:px-6 pt-4 rounded  text-white overflow-auto lg:w-[100%] lg:ml-0">
         {
           windowWidth > 1024 ? <Navbar /> : <ResponsiveNavbar/>
         }

@@ -42,11 +42,11 @@ const Album = () => {
          <div className='min-h-[100%] bg-[#282729] rounded-xl w-[100%] flex flex-wrap  flex-col  mt-4'>
             <section >
                <div className=' bg-[#3f3a43]  rounded-xl shadow-2xl '>
-                  <h1 className='text-2xl font-bold  text-center'>
+                  <h1 className='lg:text-3xl text-xl   font-bold  text-center'>
                      Popular Artists
                   </h1>
 
-                  <div className='grid  chl:grid-cols-4 grid-cols-2  md:grid-cols-2 
+                  <div className='grid mx-1  chl:grid-cols-4 grid-cols-2  md:grid-cols-2 
                   lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 lg:px-1 md:gap-4 gap-6 mt-4'>
                      {
                         artist && artist.map((artist) => (
@@ -55,13 +55,13 @@ const Album = () => {
                      }
                   </div>
                </div>
-               <div className=' bg-[#3f3a43] m-4 rounded-xl py-2 shadow-2xl '>
+               <div className=' bg-[#3f3a43] lg:m-4 my-2 rounded-xl  shadow-2xl '>
                   <h1 className='text-2xl font-bold text-center'>
                      Top Artists
                   </h1>
 
                   <div className='grid mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 
-                  lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-6 mt-4'>
+                  lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-4 mt-2 lg:mt-4'>
                      {
                         albums && albums.map((album) => (
                            <AlbumCard key={album._id} artist={album} />
@@ -71,7 +71,7 @@ const Album = () => {
                </div>
              
                <div className='bg-[#3f3a43]  rounded-xl py-2'>
-               <h1 className='text-2xl font-bold text-center'>
+               <h1 className='lg:text-3xl text-xl font-bold text-center'>
                   Top hits song 2024
                </h1>
                   <div className='grid lg:mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 

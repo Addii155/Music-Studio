@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 const ArtistCard = ({artist}) => {
     const navigate = useNavigate();
   return (
-    <div className="w-full lg:w-72 sm:w-64   cursor-pointer   hover:scale-105 rounded-xl 
+    <div className="w-full lg:w-72 sm:w-48   cursor-pointer   hover:scale-105 rounded-xl 
     mb-1  shadow-lg bg-[#282828]"
     onClick={() => navigate(`/artist/${artist._id}`)}   >
       <img src={artist.avater.url} className="w-full lg:h-48 h-24 object-cover rounded-t-lg" alt="Album art" />
