@@ -30,7 +30,7 @@ app.use(express.json(
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser());
 app.use(cors({
-    origin:["https://music-studio-rjkw.onrender.com"],
+    origin:["https://music-studio-rjkw.onrender.com","http://localhost:8000"],
     credentials:true,
     methods:["GET","POST","PUT","DELETE"]
 }))
