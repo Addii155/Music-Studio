@@ -3,7 +3,7 @@ import Album from "../models/album.model.js";
 const albumCtrl = {
     getAlbums: async (req, res) => {
         try {
-            const albums = await Album.find()
+            const albums = await Album.find().sort({ createdAt: -1 });
             res.json(albums);
         } catch (error) {
             return res.status(500).json({ msg: error.message });

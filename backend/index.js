@@ -56,7 +56,7 @@ const _dirname=path.resolve()
 
 app.use(express.static(path.join(_dirname,"/Client/dist")))
 app.get("*",(_,res)=>{
-    res.sendFile(path.resolve(__dirname,"Client","dist","index.html"))
+    res.sendFile(path.resolve(_dirname,"Client","dist","index.html"))
 })
 
 const PORT=process.env.PORT || 4000

@@ -47,7 +47,7 @@ const Album = () => {
                   </h1>
 
                   <div className='grid  chl:grid-cols-4 grid-cols-2  md:grid-cols-2 
-                  lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-6 mt-4'>
+                  lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 lg:px-1 md:gap-4 gap-6 mt-4'>
                      {
                         artist && artist.map((artist) => (
                            <ArtistCard key={artist._id} artist={artist} />

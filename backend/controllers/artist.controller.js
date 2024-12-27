@@ -20,11 +20,11 @@ const artistCtrl={
         })
     }),
     getAllArtist:TryCatch(async(req,res)=>{
-        const artists=await Artist.find();
+        const artists=await Artist.find().sort({createdAt:-1});
         res.json(artists);
     }),
     artistallMusic:TryCatch(async(req,res)=>{
-        const artist=await Artist.findById(req.params.id).populate("songs");
+        const artist=await Artist.findById(req.params.id).populate("songs").sort({createdAt:-1});
         // const allmusic=await Song.find({artist:artist._id});
         // console.log(artist)
         res.json(artist);
