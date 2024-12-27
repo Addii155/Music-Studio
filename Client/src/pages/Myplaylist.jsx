@@ -25,7 +25,7 @@ const MyPlaylist = () => {
             },
           }
         );
-
+        // console.log(response.data.playlists);
         setPlaylists(response.data.playlists);  // Store playlists in state
         setLoading(false);  // Stop loading
       } catch (error) {

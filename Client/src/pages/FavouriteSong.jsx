@@ -30,7 +30,7 @@ const FavouriteSong = () => {
           }
         );
         setSongs(response.data.favoriteSongs);
-        console.log(response.data.favoriteSongs);
+        // console.log(response.data.favoriteSongs);
       } catch (error) {
         console.error("Error fetching artist data:", error);
       }
@@ -43,13 +43,13 @@ const FavouriteSong = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   return (
-    <div className="w-full bg-[#282828] h-full rounded-xl p-4">
-      <div className="bg-[#3f3a43] m-4 rounded-xl py-2">
+    <div className="w-full bg-[#282828] h-full rounded-xl lg:p-4">
+      <div className="bg-[#3f3a43]  rounded-xl py-2">
         <h1 className="text-2xl font-bold text-center">Favourite Song</h1>
         {songs && songs.length > 0 ? (
-          <div className="grid mx-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 lg:gap-2 px-1 md:gap-4 gap-6 mt-4">
+          <div className="grid lg:mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 
+                  lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-6 mt-4 overflow-x-auto">
             {songs.length > 0 &&
               songs.map((song) => <MusicCard key={song._id} song={song} isliked={true} />)}
           </div>

@@ -65,7 +65,8 @@ const ResponsiveNavbar = () => {
     >
       <div
         className="flex items-center gap-2 lg:flex cursor-pointer"
-        onClick={() => navigate("/")}
+        onClick={() =>{ navigate("/")
+        }}
       >
         <GiGuitar className="w-12 h-12 block lg:hidden" />
         <h1 className="font-bold text-2xl lg:hidden">MuziK</h1>
@@ -106,27 +107,33 @@ const ResponsiveNavbar = () => {
                 className={`flex items-center gap-2 pl-4 cursor-pointer ${
                   location.pathname === "/" && "text-black bg-white rounded-2xl"
                 }`}
-                onClick={() => navigate("/")}
+                onClick={() => {navigate("/")
+                  setIsMenuOpen(false)
+                }}
               >
                 <MdHomeFilled className="w-6 h-6" />
                 <p className="font-bold p-2">Home</p>
               </div>
 
               {/* Your Library Link */}
-              <div
+              {/* <div
                 className="flex items-center gap-3 pl-4 cursor-pointer"
-                onClick={() => navigate("/library")}
+                onClick={() => {navigate("/library")
+                  setIsMenuOpen(false)
+                }}
               >
                 <img src={assets.stack_icon} className="w-6" alt="" />
                 <p className="font-bold">Your Library</p>
-              </div>
+              </div> */}
 
               <div
                 className={`flex items-center gap-3 pl-4 cursor-pointer ${
                   location.pathname === "/favourite" &&
                   "text-black bg-white rounded-2xl"
                 }`}
-                onClick={() => navigate("/favourite")}
+                onClick={() =>{ navigate("/favourite")
+                  setIsMenuOpen(false)
+                }}
               >
                 <Heart className="w-6 h-6" />
                 <p className="font-bold text-xl">Favourite</p>

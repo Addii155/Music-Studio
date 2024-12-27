@@ -74,7 +74,7 @@ const Album = () => {
                <h1 className='lg:text-3xl text-xl font-bold text-center'>
                   Top hits song 2024
                </h1>
-                  <div className='grid lg:mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 
+                  <div className='grid lg:mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 
                   lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-6 mt-4 overflow-x-auto'>
                      {song && song.map((song) => (
                         <MusicCard key={song._id} song={song} />
