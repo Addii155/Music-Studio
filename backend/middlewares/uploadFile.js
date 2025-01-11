@@ -1,13 +1,7 @@
 import express from "express";
 import multer from "multer";
 import fs from 'fs';
-const filedirectory="./backend/uploads/thumbnail"
 
-// Check if the "uploads" directory exists, and create it if it doesn't
-
-if (!fs.existsSync(filedirectory)) {
-    fs.mkdirSync(filedirectory);
-}
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

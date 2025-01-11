@@ -7,12 +7,7 @@ const directories = {
     song: "./backend/uploads/song",
 };
 
-// Ensure directories exist
-Object.values(directories).forEach((dir) => {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-});
+
 
 // Define storage
 const storage = multer.diskStorage({
