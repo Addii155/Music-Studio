@@ -45,31 +45,31 @@ const CustomPlayer = ({ song }) => {
     return `${minutes}:${seconds}`;
   };
 
-  const seekingRef = useRef(false); // To track if the user is seeking
+  const seekingRef = useRef(false); 
 
   return (
     <div className="rounded-lg shadow-md bg-gray-900  relative">
       {song?.audio?.url && (
         <ReactPlayer
-          ref={playerRef} // Attach the player reference
+          ref={playerRef} 
           url={song.audio.url}
           playing={isPlaying}
           volume={volume}
           playsinline={true}
-          controls={false} // Hide native controls
+          controls={false} 
           width="100%"
           height="50px"
-          style={{ display: "none" }} // Hide the player interface
-          onProgress={handleProgress} // Track progress updates
-          onDuration={handleDuration} // Extract the song's duration
+          style={{ display: "none" }} 
+          onProgress={handleProgress} 
+          onDuration={handleDuration} 
           onBuffer={() => {
             setBuffer(true)
             dispatch(setPause());
-          }} // Show loader during buffering
+          }}
           onBufferEnd={() => {
             setBuffer(false)
             dispatch(setPause());
-          }} // Hide loader when buffering ends
+          }} 
           onEnded={() => {
            handleSeek(0);
           }}
