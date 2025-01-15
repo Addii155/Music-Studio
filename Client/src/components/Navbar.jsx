@@ -8,14 +8,6 @@ import { GiGuitar } from "react-icons/gi";
 import { FaBars } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
 import { LoginUser } from "../redux/action/auth";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 const Navbar = () => {
   const dispatch = useDispatch();
