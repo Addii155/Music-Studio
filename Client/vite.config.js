@@ -1,19 +1,16 @@
-import path from "path"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  server:{
-    "/api":{
-      target:"http://localhost:8000",
-      changeOrigin:true
-    }
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+  build: {
+    rollupOptions: {
+      external: [
+        'express',
+        'mongoose',
+        'socket.io',
+        // Add other server-side modules here
+      ],
     },
   },
-})
-
+});
