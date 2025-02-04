@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-  "dev": "nodemon backend/index.js",
-  "build": "npm install && npm install --prefix Client && npm run build --prefix Client",
-  "start": "node backend/index.js",
-  "backend": "nodemon backend/index.js"
+    "dev": "nodemon backend/index.js",
+    "start": "node backend/index.js",
+    "vercel-build": "npm install"
   },
   "keywords": [],
   "author": "",
