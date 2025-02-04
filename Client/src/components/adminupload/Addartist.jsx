@@ -32,7 +32,7 @@ const Addartist = () => {
 
     try {
       const response = await axios.post(
-        "https://music-studio-rjkw.onrender.com/api/v1/addartist",
+        "https://muzik-drab.vercel.app/api/v1/addartist",
         formData,
         {
           withCredentials: true,

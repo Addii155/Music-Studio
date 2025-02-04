@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../redux/action/auth";
-import { useModeToggle } from "../components/mode-toggle";
+
 import { GiGuitar } from "react-icons/gi";
 import { FaBars } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
@@ -12,7 +12,7 @@ import { LoginUser } from "../redux/action/auth";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const theme = useModeToggle().currentMode;
+  const theme = "dark"
   const { user, error } = useSelector((state) => state.auth);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 

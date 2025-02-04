@@ -14,7 +14,7 @@ const ArtistPage = () => {
       setLoading(true);
       try {
         const artistResponse = await axios(
-          `https://music-studio-rjkw.onrender.com/api/v1/getartist/allsong/${id}`
+          `https://muzik-drab.vercel.app/api/v1/getartist/allsong/${id}`
         );
         const artistData = artistResponse.data;
         setSongs(artistData.songs);

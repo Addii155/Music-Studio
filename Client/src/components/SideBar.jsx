@@ -12,20 +12,19 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { useModeToggle } from "../components/mode-toggle";
+} from "../components/ui/sheet";
 import { GiGuitar } from "react-icons/gi";
 import { Heart } from "lucide-react";
 import { FaBars } from "react-icons/fa";
 import axios from "axios";
 
-const getCurrentMode = () => useModeToggle.getState().currentMode;
+// const getCurrentMode = () => useModeToggle.getState().currentMode;
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
-  const theme = getCurrentMode();
+  const theme = "dark";
   const [newPlaylist, setNewPlaylist] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,7 +50,7 @@ const Sidebar = () => {
       }
 
       const response = await axios.post(
-        "https://music-studio-rjkw.onrender.com/api/v1/create/playlist",
+        "https://muzik-drab.vercel.app/api/v1/create/playlist",
         { name: newPlaylist },
         {
           headers: {
@@ -74,7 +73,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="w-[25%] overflow-auto h-full p-4 flex-col gap-4 text-white hidden lg:flex">
+      <div className="w-[25%] overflow-auto h-full bg-black p-4 flex-col gap-4 text-white hidden lg:flex">
         <div className="flex items-center gap-3 pl-4 pt-4 cursor-pointer mb-4">
           <GiGuitar className="w-12 h-12" />
           <h2

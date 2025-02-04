@@ -20,7 +20,7 @@ const AddAlbum = () => {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allartist");
+        const response = await axios.get("https://muzik-drab.vercel.app/api/v1/allartist");
         setAllArtists(response.data);
       } catch (error) {
         console.error(error);
@@ -40,7 +40,7 @@ const AddAlbum = () => {
     formData.append("avatar", data.thumbnail[0]);
 
     try {
-      await axios.post("https://music-studio-rjkw.onrender.com/api/v1/album", formData, {
+      await axios.post("https://muzik-drab.vercel.app/api/v1/album", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

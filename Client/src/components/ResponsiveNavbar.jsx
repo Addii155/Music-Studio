@@ -12,19 +12,18 @@ import {
   SheetHeader,
   SheetTitle,
   SheetDescription,
-} from "@/components/ui/sheet";
-import { useModeToggle } from "../components/mode-toggle";
+} from "../components/ui/sheet";
+// import { useModeToggle } from "../components/mode-toggle";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginUser, LogoutUser } from "../redux/action/auth";
 import { GoogleLogin } from "@react-oauth/google";
-import { set } from "mongoose";
-const getCurrentMode = () => useModeToggle.getState().currentMode;
+// const getCurrentMode = () => useModeToggle.getState().currentMode;
 
 const ResponsiveNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = getCurrentMode();
+  const theme = "dark"
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
   const { user } = useSelector((state) => state.auth);

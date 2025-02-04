@@ -26,7 +26,7 @@ const Player = () => {
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 w-full px-2 pb-1
-      bg-white dark:bg-black dark:border-2 dark:border-gray-700 
+      bg-black dark:border-2 dark:border-gray-700 
       shadow-lg flex items-center z-50  
       ${playerScreen ? "block" : "hidden"} 
       `}

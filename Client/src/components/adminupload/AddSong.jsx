@@ -23,7 +23,7 @@ const AddSong = () => {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await axios.get('https://music-studio-rjkw.onrender.com/api/v1/allartist');
+        const response = await axios.get('https://muzik-drab.vercel.app/api/v1/allartist');
         setallartists(response.data);
       } catch (error) {
         console.error(error);
@@ -31,7 +31,7 @@ const AddSong = () => {
     };
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get('https://music-studio-rjkw.onrender.com/api/v1/allalbum');
+        const response = await axios.get('https://muzik-drab.vercel.app/api/v1/allalbum');
         setallalbums(response.data);
       } catch (error) {
         console.error(error);
@@ -52,7 +52,7 @@ const AddSong = () => {
 
     try {
       setloading(true);
-      const response = await axios.post('https://music-studio-rjkw.onrender.com/api/v1/newsong', formData, {
+      const response = await axios.post('https://muzik-drab.vercel.app/api/v1/newsong', formData, {
         withCredentials: true,
         headers: {
           'Content-Type': "multipart/form-data",

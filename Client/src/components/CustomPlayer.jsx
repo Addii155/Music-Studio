@@ -122,8 +122,8 @@ const CustomPlayer = ({ song }) => {
 
       <div className="mt-1 ">
         <div className="w-full flex justify-between ">
-          <span>{formatCurrrenttime(progress)}</span>
-          <span>{formatCurrrenttime(songduration)}</span>
+          <span className="text-white">{formatCurrrenttime(progress)}</span>
+          <span className="text-white">{formatCurrrenttime(songduration)}</span>
         </div>
         <div className="text-blue-700">
           {buffer && (

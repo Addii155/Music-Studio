@@ -12,7 +12,7 @@ const Album = () => {
    useEffect(() => {
 
       const fetchData = async () => {
-         const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allsongs");
+         const response = await axios.get("https://muzik-drab.vercel.app/api/v1/allsongs");
          setsong(response.data);
 
       };
@@ -21,7 +21,7 @@ const Album = () => {
    useEffect(() => {
 
       const fetchData = async () => {
-         const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allalbum");
+         const response = await axios.get("https://muzik-drab.vercel.app/api/v1/allalbum");
          setalbums(response.data);
 
       };
@@ -31,7 +31,7 @@ const Album = () => {
    useEffect(() => {
 
       const fetchData = async () => {
-         const response = await axios.get("https://music-studio-rjkw.onrender.com/api/v1/allartist");
+         const response = await axios.get("https://muzik-drab.vercel.app/api/v1/allartist");
          setartist(response.data);
          
       };
@@ -60,7 +60,7 @@ const Album = () => {
                      Top Artists
                   </h1>
 
-                  <div className='grid mx-2 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 
+                  <div className='grid mx-1 chl:grid-cols-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 
                   lg:grid-cols-3 cl:grid-cols-3 lg:gap-2 px-1 md:gap-4 gap-4 mt-2 lg:mt-4'>
                      {
                         albums && albums.map((album) => (

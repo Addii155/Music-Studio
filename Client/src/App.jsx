@@ -9,6 +9,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Player from "./components/Player.jsx";
 function App() {
   const { user } = useSelector((state) => state.auth);
+  console.log(import.meta.env.VITE_GOOGLE_CLIENT_ID);
   return (
     <>
       <BrowserRouter>

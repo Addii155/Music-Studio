@@ -16,7 +16,7 @@ const AlbumPage = () => {
       try {
         // Fetch artist details (replace with your API endpoint)
         const artistResponse = await axios.get(
-          `https://music-studio-rjkw.onrender.com/api/v1/getalbum/${id}`
+          `https://muzik-drab.vercel.app/api/v1/getalbum/${id}`
         );
         const artistData = await artistResponse.data;
         setSongs(artistData.albumSongs);
