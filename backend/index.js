@@ -30,7 +30,7 @@ app.use(express.json(
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser());
 app.use(cors({
-    origin:["https://muzik-drab.vercel.app","http://localhost:5173","http://localhost:8000","https://muzik-drab.vercel.app"],
+    origin:["https://muzik-drab.vercel.app","http://localhost:5173","http://localhost:8000","https://music-studio-omega.vercel.app"],
     credentials:true,
     methods:["GET","POST","PUT","DELETE"]
 }))
