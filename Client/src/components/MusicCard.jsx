@@ -7,7 +7,6 @@ import { onlikeClick } from '../store/song';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSong } from '../redux/reducer/musicSlice'
-import { Music, Play } from 'lucide-react';
     const MusicCard = ({ song ,isliked = false}) => {
         const navigate = useNavigate();
         const dispatch = useDispatch();
@@ -39,7 +38,7 @@ import { Music, Play } from 'lucide-react';
         onlikeClick({ id: song._id });
     }
     return (
-        <div className="lg:w-72 sm:w-48 w-42   hover:scale-105 rounded-xl my-2   overflow-hidden shadow-lg bg-[#282828]">
+        <div className="lg:w-72 sm:w-48 w-42 aspect-auto  hover:scale-105 rounded-xl my-2   overflow-hidden shadow-lg bg-[#282828]">
             <div className="relative ">
                 <div className='w-full h-36'>
                     <img src={song?.thumbnail?.url}

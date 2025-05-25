@@ -101,18 +101,23 @@ const Sidebar = () => {
           </div>
           <div
             className={`flex items-center gap-2 pl-4 cursor-pointer ${
-              location.pathname === "/playlist" && "text-black bg-white rounded-2xl"
+              location.pathname === "/playlist" &&
+              "text-black bg-white rounded-2xl"
             }`}
             onClick={() => navigate("/playlist")}
           >
             {location.pathname === "/" ? (
               <MdHomeFilled className="w-6 h-6" />
             ) : (
-              <img src={assets.stack_icon} className= {`w-6 h-6 
+              <img
+                src={assets.stack_icon}
+                className={`w-6 h-6 
                 ${location.pathname === "/playlist" ? "bg-black" : "text-white"}
-                `} alt="" />
+                `}
+                alt=""
+              />
             )}
-            <p className="font-bold p-2">Playlist</p>
+            <p className="font-bold mb-2">Playlist</p>
           </div>
           {/* <div
             className="flex items-center gap-2 pl-4 cursor-pointer"
