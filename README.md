@@ -2,8 +2,8 @@
 
 A modern, full-stack music management platform that allows users to manage **artists, albums, and songs** with an intuitive UI and robust backend. This application supports user authentication, playlist and favorite song management, and seamless CRUD operations — all built with the **MERN + Next.js stack** and styled with **Tailwind CSS**.
 
-> 🚀 Live Demo: _[[Add your deployed link here](https://music-studio-omega.vercel.app/)]_  
-> 📂 Repository: [[GitHub Link Here](https://github.com/Addii155/Music-Studio)]_
+> 🚀 Live Demo: _[(https://music-studio-omega.vercel.app/)]_  
+> 📂 Repository: [(https://github.com/Addii155/Music-Studio)]_
 
 ---
 
